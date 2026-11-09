@@ -1,14 +1,20 @@
 
 from app.services.semantic_search import semantic_search
 
-query = "Tôi không đăng nhập được tài khoản công ty"
+questions = [
+    "Tôi muốn truy cập hệ thống công ty khi làm việc tại nhà",
+    "Làm thế nào để kết nối VPN vào mạng nội bộ công ty?",
+    "Nhân viên làm việc từ xa cần kết nối như thế nào?"
+]
 
-results = semantic_search(query, top_k=3)
+for question in questions:
+    print(f"\nQUESTION: {question}")
+    print("-" * 50)
 
-print(f"\nQuestion: {query}")
+    results = semantic_search(question, top_k=8)
 
-for i, result in enumerate(results, start=1):
-    print(f"\nResult {i}")
-    print("Source:", result["source"])
-    print("Similarity:", result["score"])
-    print("Content:", result["text"][:200])
+    for rank, result in enumerate(results, start=1):
+        print(
+            f"{rank}. {result['source']} "
+            f"| Score: {result['score']:.4f}"
+        )

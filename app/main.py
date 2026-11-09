@@ -46,3 +46,35 @@ def search_documents(q: str = Query(min_length=2)):
         "total": len(results),
         "results": results
     }
+
+from fastapi import HTTPException
+from pydantic import BaseModel, Field
+
+from app.services.chroma_search import search_chroma
+
+
+class SemanticSearchRequest(BaseModel):
+    query: str = Field(min_length=2)
+    top_k: int = Field(default=3, ge=1, le=20)
+
+
+@app.post("/semantic-search")
+def semantic_search_endpoint(
+    request: SemanticSearchRequest
+):
+    if not request.query.strip():
+        raise HTTPException(
+            status_code=422,
+            detail="Query must not be empty"
+        )
+
+    results = search_chroma(
+        query=request.query,
+        top_k=request.top_k
+    )
+
+    return {
+        "query": request.query,
+        "total": len(results),
+        "results": results
+    }
