@@ -1,0 +1,28 @@
+
+[
+  {
+    "id": 11,
+    "query": "Tài khoản của tôi bị khóa sau nhiều lần đăng nhập thất bại, tôi cần liên hệ ai?",
+    "relevant_sources": ["password_reset.md"]
+  },
+  {
+    "id": 12,
+    "query": "Khi không có mặt ở văn phòng, tôi cần làm gì để sử dụng tài nguyên nội bộ?",
+    "relevant_sources": ["vpn_access.md"]
+  },
+  {
+    "id": 13,
+    "query": "Tại sao ứng dụng thư điện tử của tôi không hoạt động bình thường?",
+    "relevant_sources": ["email_support.md"]
+  },
+  {
+    "id": 14,
+    "query": "Nhân viên mới nhận laptop cần thực hiện những bước thiết lập nào?",
+    "relevant_sources": ["device_setup.md"]
+  },
+  {
+    "id": 15,
+    "query": "Tôi cần tuân thủ những quy định nào để bảo vệ thông tin doanh nghiệp?",
+    "relevant_sources": ["security_policy.md"]
+  }
+]

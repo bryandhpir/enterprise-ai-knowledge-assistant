@@ -1,0 +1,53 @@
+
+[
+  {
+    "id": 1,
+    "query": "Tôi quên mật khẩu tài khoản công ty",
+    "relevant_sources": ["password_reset.md"]
+  },
+  {
+    "id": 2,
+    "query": "Tôi vừa đổi mật khẩu nhưng vẫn không đăng nhập được",
+    "relevant_sources": ["password_reset.md"]
+  },
+  {
+    "id": 3,
+    "query": "Làm thế nào để kết nối VPN vào mạng nội bộ công ty?",
+    "relevant_sources": ["vpn_access.md"]
+  },
+  {
+    "id": 4,
+    "query": "Tôi muốn truy cập hệ thống công ty khi làm việc tại nhà",
+    "relevant_sources": ["vpn_access.md"]
+  },
+  {
+    "id": 5,
+    "query": "Nhân viên làm việc từ xa cần kết nối như thế nào?",
+    "relevant_sources": ["vpn_access.md"]
+  },
+  {
+    "id": 6,
+    "query": "Tôi không thể gửi thư bằng email công ty",
+    "relevant_sources": ["email_support.md"]
+  },
+  {
+    "id": 7,
+    "query": "Làm sao khắc phục lỗi gửi email công việc?",
+    "relevant_sources": ["email_support.md"]
+  },
+  {
+    "id": 8,
+    "query": "Cách thiết lập máy tính mới cho nhân viên",
+    "relevant_sources": ["device_setup.md"]
+  },
+  {
+    "id": 9,
+    "query": "Tôi cần chuẩn bị thiết bị làm việc như thế nào?",
+    "relevant_sources": ["device_setup.md"]
+  },
+  {
+    "id": 10,
+    "query": "Các quy định bảo mật của công ty là gì?",
+    "relevant_sources": ["security_policy.md"]
+  }
+]

@@ -3,7 +3,11 @@ from app.services.embedding_service import embed_texts
 from app.services.vector_store import get_collection
 
 
-def search_chroma(query: str, top_k: int = 3):
+def search_chroma(
+    query: str,
+    top_k: int = 3,
+    collection_name: str = "it_knowledge_base"
+):
 
     if not query.strip():
         raise ValueError("Query must not be empty")
@@ -11,7 +15,7 @@ def search_chroma(query: str, top_k: int = 3):
     if top_k <= 0:
         raise ValueError("top_k must be positive")
 
-    collection = get_collection()
+    collection = get_collection(name=collection_name)
 
     if collection.count() == 0:
         return []
