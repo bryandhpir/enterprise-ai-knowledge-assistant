@@ -1,4 +1,7 @@
 
+from app.schemas.chat import ChatRequest, ChatResponse
+from app.services.rag_service import answer_question
+from google.genai import errors
 from fastapi import FastAPI
 
 app = FastAPI(
@@ -78,3 +81,21 @@ def semantic_search_endpoint(
         "total": len(results),
         "results": results
     }
+
+
+@app.post("/chat", response_model=ChatResponse)
+def chat_endpoint(request: ChatRequest):
+    try:
+        result = answer_question(
+            question=request.question,
+            top_k=request.top_k
+        )
+
+        return result
+
+    except errors.APIError as exc:
+        raise HTTPException(
+            status_code=502,
+            detail="Dịch vụ AI hiện không khả dụng. Vui lòng thử lại sau."
+        ) from exc
+
