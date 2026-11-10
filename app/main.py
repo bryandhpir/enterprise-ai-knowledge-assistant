@@ -1,14 +1,58 @@
+import logging
+import os
+import time
+
+from fastapi import Request
 
 from app.schemas.chat import ChatRequest, ChatResponse
 from app.services.rag_service import answer_question
 from google.genai import errors
 from fastapi import FastAPI
+from app.services.readiness import is_ready
+
+
+log_level = os.getenv("LOG_LEVEL", "INFO").upper()
+
+if log_level not in {
+    "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"
+}:
+    log_level = "INFO"
+
+logging.basicConfig(
+    level=getattr(logging, log_level),
+    format="%(asctime)s %(levelname)s %(name)s %(message)s"
+)
+
+logger = logging.getLogger("enterprise_ai")
+
 
 app = FastAPI(
     title="Enterprise AI Knowledge Assistant",
     version="0.1.0"
 )
+@app.middleware("http")
+async def request_logging(request: Request, call_next):
+    start_time = time.perf_counter()
+    status_code = 500
 
+    try:
+        response = await call_next(request)
+        status_code = response.status_code
+        return response
+
+    finally:
+        duration_ms = (
+            time.perf_counter() - start_time
+        ) * 1000
+
+        logger.info(
+            "http method=%s path=%s status=%s duration_ms=%.1f",
+            request.method,
+            request.url.path,
+            status_code,
+            duration_ms
+        )
+        
 @app.get("/")
 def home():
     return {"message": "Welcome to Knowledge Assistant"}
@@ -99,3 +143,19 @@ def chat_endpoint(request: ChatRequest):
             detail="Dịch vụ AI hiện không khả dụng. Vui lòng thử lại sau."
         ) from exc
 
+
+@app.get("/ready")
+def readiness_endpoint():
+    try:
+        ready = is_ready()
+    except Exception:
+        logger.exception("Readiness check failed")
+        ready = False
+
+    if not ready:
+        raise HTTPException(
+            status_code=503,
+            detail="Service not ready"
+        )
+
+    return {"status": "ready"}
