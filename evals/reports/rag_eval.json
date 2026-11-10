@@ -1,0 +1,392 @@
+{
+  "generated_at": "2026-11-10T00:12:58.226287+00:00",
+  "collection": "it_knowledge_base_v2",
+  "top_k": 3,
+  "min_similarity": "",
+  "summary": {
+    "total": 8,
+    "answerable_cases": 5,
+    "unanswerable_cases": 3,
+    "source_hit_rate": 0.8,
+    "citation_id_valid_rate": 0.8,
+    "unanswerable_refusal_rate": 1.0
+  },
+  "results": [
+    {
+      "id": "H11",
+      "question": "Tài khoản của tôi bị khóa sau nhiều lần đăng nhập thất bại, tôi cần liên hệ ai?",
+      "answerable": true,
+      "source_hit": true,
+      "citation_valid": true,
+      "refusal_correct": null,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp để xác định chính xác bạn cần liên hệ với ai khi tài khoản bị khóa sau nhiều lần đăng nhập thất bại. \n\nTuy nhiên, tài liệu có đề cập rằng bạn **không thử đăng nhập liên tục**, và nếu nghi ngờ bị lộ mật khẩu hoặc có đăng nhập lạ, bạn cần báo ngay cho IT/Security qua kênh chính thức [S2]. Ngoài ra, việc chuyển cho nhóm quản trị danh tính hoặc Security được áp dụng khi không xác minh được chủ tài khoản, nghi ngờ bị chiếm quyền, mất MFA không có phương thức dự phòng, tài khoản quản trị bị ảnh hưởng, hoặc lỗi xảy ra hàng loạt [S1].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "password_reset.md",
+          "chunk_index": 18,
+          "score": 0.5903
+        },
+        {
+          "id": "S2",
+          "source": "password_reset.md",
+          "chunk_index": 16,
+          "score": 0.5704
+        },
+        {
+          "id": "S3",
+          "source": "password_reset.md",
+          "chunk_index": 22,
+          "score": 0.5606
+        }
+      ],
+      "evidence": {
+        "S1": {
+          "source": "password_reset.md",
+          "chunk_index": 18,
+          "text": "Tài liệu: password reset\nMục: 6. Khi nào cần chuyển cấp xử lý?\nNội dung: Chuyển cho nhóm quản trị danh tính hoặc Security nếu: không xác minh được chủ tài khoản; nghi ngờ bị chiếm quyền; MFA mất và không có phương thức dự phòng hợp lệ; tài khoản quản trị bị ảnh hưởng; lỗi xảy ra hàng loạt."
+        },
+        "S2": {
+          "source": "password_reset.md",
+          "chunk_index": 16,
+          "text": "Tài liệu: password reset\nMục: 5. Trường hợp đặc biệt\nNội dung: không thử đăng nhập liên tục. - **Nghi ngờ bị lộ mật khẩu / đăng nhập lạ:** Báo ngay IT/Security qua kênh chính thức. IT đánh giá việc khóa tài khoản, thu hồi phiên đăng nhập và kiểm tra dấu hiệu truy cập bất thường."
+        },
+        "S3": {
+          "source": "password_reset.md",
+          "chunk_index": 22,
+          "text": "Tài liệu: password reset\nMục: 8. Tài liệu liên quan\nNội dung: - [Hướng dẫn kết nối VPN](vpn_access.md) - [Xử lý lỗi email công ty](email_support.md) - [Quy định bảo mật thông tin](security_policy.md)"
+        }
+      }
+    },
+    {
+      "id": "H12",
+      "question": "Khi không có mặt ở văn phòng, tôi cần làm gì để sử dụng tài nguyên nội bộ?",
+      "answerable": true,
+      "source_hit": false,
+      "citation_valid": false,
+      "refusal_correct": null,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "device_setup.md",
+          "chunk_index": 3,
+          "score": 0.4199
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 1,
+          "score": 0.398
+        },
+        {
+          "id": "S3",
+          "source": "device_setup.md",
+          "chunk_index": 24,
+          "score": 0.3634
+        }
+      ],
+      "evidence": {
+        "S1": {
+          "source": "device_setup.md",
+          "chunk_index": 3,
+          "text": "Tài liệu: device setup\nMục: 2. Thông tin cần có từ HR / quản lý\nNội dung: - Họ tên, mã nhân viên (nếu đã có), bộ phận và người quản lý trực tiếp. - Ngày bắt đầu làm việc, địa điểm làm việc và hình thức làm việc (tại văn phòng/từ xa). - Loại thiết bị, phụ kiện và ứng dụng"
+        },
+        "S2": {
+          "source": "email_support.md",
+          "chunk_index": 1,
+          "text": "Tài liệu: email support\nMục: 1. Phạm vi\nNội dung: Hướng dẫn các bước cơ bản khi nhân viên không đăng nhập được email, không gửi/nhận thư, lỗi đồng bộ hoặc nhận thư đáng ngờ. Dịch vụ email có thể là Microsoft 365, Google Workspace hoặc hệ thống khác; **sử dụng cổng và ứng dụng"
+        },
+        "S3": {
+          "source": "device_setup.md",
+          "chunk_index": 24,
+          "text": "Tài liệu: device setup\nMục: 6. Câu hỏi thường gặp\nNội dung: **Hỏi: Nhân viên mới có cần quyền admin trên máy không?** Đáp: Không mặc định. Chỉ cấp khi có nhu cầu công việc và được phê duyệt theo quy trình."
+        }
+      }
+    },
+    {
+      "id": "H13",
+      "question": "Tại sao ứng dụng thư điện tử của tôi không hoạt động bình thường?",
+      "answerable": true,
+      "source_hit": true,
+      "citation_valid": true,
+      "refusal_correct": null,
+      "citation_failed": false,
+      "answer": "Dựa trên tài liệu được cung cấp, nếu ứng dụng thư điện tử của bạn không hoạt động bình thường (ví dụ: Webmail hoạt động nhưng Outlook không nhận thư hoặc ứng dụng email không đồng bộ), nguyên nhân và cách xử lý như sau:\n\n* **Nguyên nhân:** Khả năng cao vấn đề nằm ở ứng dụng, phiên đăng nhập hoặc đồng bộ trên thiết bị [S1].\n* **Cách xử lý:** \n  * So sánh hộp thư trên webmail và ứng dụng [S2].\n  * Đóng và mở lại ứng dụng, kiểm tra cập nhật, sau đó đăng nhập lại theo hướng dẫn IT hoặc qua quy trình chính thức nếu được yêu cầu [S1], [S2].\n  * Ghi nhận lỗi [S1]. Nếu lỗi chỉ xuất hiện trên một thiết bị, hãy gửi thông tin phiên bản ứng dụng và hệ điều hành cho bộ phận IT [S2], [S3].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 27,
+          "score": 0.6503
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 16,
+          "score": 0.6418
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 17,
+          "score": 0.6275
+        }
+      ],
+      "evidence": {
+        "S1": {
+          "source": "email_support.md",
+          "chunk_index": 27,
+          "text": "Tài liệu: email support\nMục: 7. Câu hỏi thường gặp\nNội dung: **Hỏi: Webmail hoạt động nhưng Outlook không nhận thư?** Đáp: Khả năng cao vấn đề nằm ở ứng dụng, phiên đăng nhập hoặc đồng bộ trên thiết bị. Ghi nhận lỗi rồi thử cập nhật/đăng nhập lại theo hướng dẫn IT."
+        },
+        "S2": {
+          "source": "email_support.md",
+          "chunk_index": 16,
+          "text": "Tài liệu: email support\nMục: D. Ứng dụng email không đồng bộ\nNội dung: - So sánh hộp thư trên webmail và ứng dụng. - Đóng/mở lại ứng dụng, kiểm tra cập nhật và đăng nhập lại qua quy trình chính thức nếu được yêu cầu. - Nếu lỗi chỉ xuất hiện trên một thiết bị, gửi thông tin"
+        },
+        "S3": {
+          "source": "email_support.md",
+          "chunk_index": 17,
+          "text": "Tài liệu: email support\nMục: D. Ứng dụng email không đồng bộ\nNội dung: hiện trên một thiết bị, gửi thông tin phiên bản ứng dụng và hệ điều hành cho IT."
+        }
+      }
+    },
+    {
+      "id": "H14",
+      "question": "Nhân viên mới nhận laptop cần thực hiện những bước thiết lập nào?",
+      "answerable": true,
+      "source_hit": true,
+      "citation_valid": true,
+      "refusal_correct": null,
+      "citation_failed": false,
+      "answer": "Theo tài liệu hướng dẫn, nhân viên mới trong ngày đầu nhận thiết bị cần thực hiện các bước sau:\n\n1. Kiểm tra tình trạng thiết bị và phụ kiện theo biên bản [S1].\n2. Đăng nhập bằng tài khoản được cấp qua kênh chính thức [S1].\n3. Thiết lập MFA và phương thức khôi phục theo hướng dẫn IT [S1].\n4. Thử mở email, ứng dụng làm việc và VPN nếu được cấp [S2].\n5. Đọc quy định bảo mật thông tin và báo ngay các lỗi hoặc quyền truy cập thiếu [S2].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "device_setup.md",
+          "chunk_index": 20,
+          "score": 0.5782
+        },
+        {
+          "id": "S2",
+          "source": "device_setup.md",
+          "chunk_index": 21,
+          "score": 0.5461
+        },
+        {
+          "id": "S3",
+          "source": "device_setup.md",
+          "chunk_index": 6,
+          "score": 0.5296
+        }
+      ],
+      "evidence": {
+        "S1": {
+          "source": "device_setup.md",
+          "chunk_index": 20,
+          "text": "Tài liệu: device setup\nMục: 4. Quy trình dành cho nhân viên mới (ngày đầu)\nNội dung: 1. Kiểm tra tình trạng thiết bị và phụ kiện theo biên bản. 2. Đăng nhập bằng tài khoản được cấp qua kênh chính thức. 3. Thiết lập MFA và phương thức khôi phục theo hướng dẫn IT. 4. Thử mở email, ứng dụng làm"
+        },
+        "S2": {
+          "source": "device_setup.md",
+          "chunk_index": 21,
+          "text": "Tài liệu: device setup\nMục: 4. Quy trình dành cho nhân viên mới (ngày đầu)\nNội dung: IT. 4. Thử mở email, ứng dụng làm việc và VPN nếu được cấp. 5. Đọc [quy định bảo mật thông tin](security_policy.md); báo ngay các lỗi hoặc quyền truy cập thiếu."
+        },
+        "S3": {
+          "source": "device_setup.md",
+          "chunk_index": 6,
+          "text": "Tài liệu: device setup\nMục: Bước 1 — Tiếp nhận và phê duyệt\nNội dung: 1. Nhận yêu cầu onboarding qua **[Cổng IT Helpdesk nội bộ]**. 2. Xác nhận thông tin với HR và người quản lý, kiểm tra phê duyệt thiết bị và quyền truy cập. 3. Lập danh sách đầu việc và người chịu trách nhiệm; ghi mã"
+        }
+      }
+    },
+    {
+      "id": "H15",
+      "question": "Tôi cần tuân thủ những quy định nào để bảo vệ thông tin doanh nghiệp?",
+      "answerable": true,
+      "source_hit": true,
+      "citation_valid": true,
+      "refusal_correct": null,
+      "citation_failed": false,
+      "answer": "Để bảo vệ thông tin doanh nghiệp, bạn cần tuân thủ các quy định sau:\n\n1. **Lưu trữ và chia sẻ dữ liệu:**\n   - Lưu dữ liệu công việc tại vị trí được doanh nghiệp quản lý và sao lưu theo quy định [S1].\n   - Chỉ cấp quyền cho người cần biết và kiểm tra kỹ người nhận trước khi chia sẻ [S1].\n   - Không tạo liên kết dạng “ai có link đều [có thể truy cập]” [S1].\n\n2. **Phân loại thông tin:**\n   - Kiểm soát chặt chẽ thông tin, áp dụng quyền tối thiểu và không đưa thông tin vào các công cụ chưa được phê duyệt [S2].\n\n3. **Trách nhiệm của nhân viên:**\n   - Bảo vệ tài khoản cá nhân, tuân thủ nghiêm ngặt các quy định và kịp thời báo cáo khi xảy ra sự cố [S3].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "security_policy.md",
+          "chunk_index": 19,
+          "score": 0.6414
+        },
+        {
+          "id": "S2",
+          "source": "security_policy.md",
+          "chunk_index": 8,
+          "score": 0.6288
+        },
+        {
+          "id": "S3",
+          "source": "security_policy.md",
+          "chunk_index": 29,
+          "score": 0.6276
+        }
+      ],
+      "evidence": {
+        "S1": {
+          "source": "security_policy.md",
+          "chunk_index": 19,
+          "text": "Tài liệu: security policy\nMục: 6. Lưu trữ và chia sẻ dữ liệu\nNội dung: 1. Lưu dữ liệu công việc tại vị trí được doanh nghiệp quản lý và sao lưu theo quy định. 2. Chỉ cấp quyền cho người cần biết; kiểm tra người nhận trước khi chia sẻ. 3. Không tạo liên kết “ai có link đều"
+        },
+        "S2": {
+          "source": "security_policy.md",
+          "chunk_index": 8,
+          "text": "Tài liệu: security policy\nMục: 2. Phân loại thông tin\nNội dung: Kiểm soát chặt, cấp quyền tối thiểu, không đưa vào công cụ không được phê duyệt |"
+        },
+        "S3": {
+          "source": "security_policy.md",
+          "chunk_index": 29,
+          "text": "Tài liệu: security policy\nMục: 8. Trách nhiệm và ngoại lệ\nNội dung: - **Nhân viên:** Bảo vệ tài khoản, tuân thủ quy định và báo cáo sự cố kịp thời. - **Quản lý:** Phê duyệt nhu cầu truy cập phù hợp vị trí công việc. - **IT:** Cấu hình, vận hành và hỗ trợ hệ thống theo"
+        }
+      }
+    },
+    {
+      "id": "N01",
+      "question": "Làm thế nào để nấu phở bò?",
+      "answerable": false,
+      "source_hit": null,
+      "citation_valid": null,
+      "refusal_correct": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "device_setup.md",
+          "chunk_index": 8,
+          "score": 0.0872
+        },
+        {
+          "id": "S2",
+          "source": "device_setup.md",
+          "chunk_index": 13,
+          "score": 0.086
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 8,
+          "score": 0.0775
+        }
+      ],
+      "evidence": {
+        "S1": {
+          "source": "device_setup.md",
+          "chunk_index": 8,
+          "text": "Tài liệu: device setup\nMục: Bước 2 — Chuẩn bị phần cứng\nNội dung: 1. Chọn thiết bị đã được doanh nghiệp phê duyệt, kiểm tra tình trạng vật lý và phụ kiện. 2. Ghi mã tài sản, số serial và người nhận vào hệ thống quản lý tài sản. 3. Kiểm tra kết nối mạng, camera, micro, bàn"
+        },
+        "S2": {
+          "source": "device_setup.md",
+          "chunk_index": 13,
+          "text": "Tài liệu: device setup\nMục: Bước 4 — Thiết lập tài khoản và phần mềm\nNội dung: 1. Kích hoạt tài khoản doanh nghiệp/SSO theo quy trình quản lý danh tính. 2. Hướng dẫn nhân viên tự thiết lập mật khẩu và MFA qua kênh chính thức; IT **không cần biết mật khẩu**. 3. Cài các ứng dụng được duyệt: trình duyệt,"
+        },
+        "S3": {
+          "source": "email_support.md",
+          "chunk_index": 8,
+          "text": "Tài liệu: email support\nMục: 3. Quy trình kiểm tra ban đầu\nNội dung: một thiết bị hay nhiều người trong bộ phận. 5. Áp dụng hướng dẫn tương ứng phía dưới; nếu chưa giải quyết được, tạo ticket."
+        }
+      }
+    },
+    {
+      "id": "N02",
+      "question": "Giá vàng SJC hiện tại là bao nhiêu?",
+      "answerable": false,
+      "source_hit": null,
+      "citation_valid": null,
+      "refusal_correct": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "security_policy.md",
+          "chunk_index": 0,
+          "score": 0.116
+        },
+        {
+          "id": "S2",
+          "source": "security_policy.md",
+          "chunk_index": 4,
+          "score": 0.1109
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 22,
+          "score": 0.1014
+        }
+      ],
+      "evidence": {
+        "S1": {
+          "source": "security_policy.md",
+          "chunk_index": 0,
+          "text": "Tài liệu: security policy\nMục: security policy\nNội dung: --- title: Quy định bảo mật thông tin (bản mẫu) category: Information Security id: IT-KB-005 audience: Toàn bộ nhân viên, Nhà thầu được cấp quyền, IT, Security tags: [security, bao-mat, phishing, data, mfa, incident] version: '1.0' status: BẢN MẪU MINH HỌA — không phải chính"
+        },
+        "S2": {
+          "source": "security_policy.md",
+          "chunk_index": 4,
+          "text": "Tài liệu: security policy\nMục: 1. Mục đích và đối tượng áp dụng\nNội dung: và đối tác được cấp quyền truy cập tài nguyên doanh nghiệp."
+        },
+        "S3": {
+          "source": "email_support.md",
+          "chunk_index": 22,
+          "text": "Tài liệu: email support\nMục: 5. Quy trình xử lý ticket của IT Helpdesk\nNội dung: khi có dấu hiệu phishing hoặc chiếm quyền tài khoản. 5. Yêu cầu người dùng xác nhận gửi/nhận thư thành công, ghi lại cách xử lý và đóng ticket."
+        }
+      }
+    },
+    {
+      "id": "N03",
+      "question": "Mật khẩu VPN của giám đốc công ty là gì?",
+      "answerable": false,
+      "source_hit": null,
+      "citation_valid": null,
+      "refusal_correct": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "password_reset.md",
+          "chunk_index": 22,
+          "score": 0.7246
+        },
+        {
+          "id": "S2",
+          "source": "vpn_access.md",
+          "chunk_index": 20,
+          "score": 0.6852
+        },
+        {
+          "id": "S3",
+          "source": "vpn_access.md",
+          "chunk_index": 2,
+          "score": 0.684
+        }
+      ],
+      "evidence": {
+        "S1": {
+          "source": "password_reset.md",
+          "chunk_index": 22,
+          "text": "Tài liệu: password reset\nMục: 8. Tài liệu liên quan\nNội dung: - [Hướng dẫn kết nối VPN](vpn_access.md) - [Xử lý lỗi email công ty](email_support.md) - [Quy định bảo mật thông tin](security_policy.md)"
+        },
+        "S2": {
+          "source": "vpn_access.md",
+          "chunk_index": 20,
+          "text": "Tài liệu: vpn access\nMục: 7. Quy tắc bảo mật khi dùng VPN\nNội dung: - Chỉ dùng VPN do doanh nghiệp phê duyệt; không tự cài công cụ kết nối không rõ nguồn gốc. - Không chia sẻ tài khoản VPN hay phê duyệt MFA thay người khác. - Không thay đổi cấu hình bảo mật, DNS, chứng chỉ"
+        },
+        "S3": {
+          "source": "vpn_access.md",
+          "chunk_index": 2,
+          "text": "Tài liệu: vpn access\nMục: 1. VPN dùng để làm gì?\nNội dung: hệ thống. Việc sử dụng phải tuân theo chính sách của doanh nghiệp."
+        }
+      }
+    }
+  ]
+}

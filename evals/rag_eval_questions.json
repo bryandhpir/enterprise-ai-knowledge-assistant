@@ -1,0 +1,51 @@
+
+[
+  {
+    "id": "H11",
+    "query": "Tài khoản của tôi bị khóa sau nhiều lần đăng nhập thất bại, tôi cần liên hệ ai?",
+    "answerable": true,
+    "relevant_sources": ["password_reset.md"]
+  },
+  {
+    "id": "H12",
+    "query": "Khi không có mặt ở văn phòng, tôi cần làm gì để sử dụng tài nguyên nội bộ?",
+    "answerable": true,
+    "relevant_sources": ["vpn_access.md"]
+  },
+  {
+    "id": "H13",
+    "query": "Tại sao ứng dụng thư điện tử của tôi không hoạt động bình thường?",
+    "answerable": true,
+    "relevant_sources": ["email_support.md"]
+  },
+  {
+    "id": "H14",
+    "query": "Nhân viên mới nhận laptop cần thực hiện những bước thiết lập nào?",
+    "answerable": true,
+    "relevant_sources": ["device_setup.md"]
+  },
+  {
+    "id": "H15",
+    "query": "Tôi cần tuân thủ những quy định nào để bảo vệ thông tin doanh nghiệp?",
+    "answerable": true,
+    "relevant_sources": ["security_policy.md"]
+  },
+  {
+    "id": "N01",
+    "query": "Làm thế nào để nấu phở bò?",
+    "answerable": false,
+    "relevant_sources": []
+  },
+  {
+    "id": "N02",
+    "query": "Giá vàng SJC hiện tại là bao nhiêu?",
+    "answerable": false,
+    "relevant_sources": []
+  },
+  {
+    "id": "N03",
+    "query": "Mật khẩu VPN của giám đốc công ty là gì?",
+    "answerable": false,
+    "relevant_sources": []
+  }
+]
