@@ -1,0 +1,61 @@
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: enterprise-ai-rag-api:latest
+
+    env_file:
+      - .env
+
+    environment:
+      HF_HOME: /home/appuser/.cache/huggingface
+
+    ports:
+      - "127.0.0.1:8001:8000"
+
+    volumes:
+      - chroma_data:/app/data/chroma
+      - huggingface_cache:/home/appuser/.cache/huggingface
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  frontend:
+    image: enterprise-ai-rag-api:latest
+
+    pull_policy: never
+
+    command:
+      - python
+      - -m
+      - streamlit
+      - run
+      - frontend/streamlit_app.py
+      - --server.address=0.0.0.0
+      - --server.port=8501
+      - --server.headless=true
+
+    environment:
+      RAG_API_URL: http://api:8000/chat
+
+    ports:
+      - "127.0.0.1:8501:8501"
+
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  chroma_data:
+  huggingface_cache:
