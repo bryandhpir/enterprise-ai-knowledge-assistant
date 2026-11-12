@@ -1,63 +1,104 @@
-# Portfolio & CV Project Description
+# AI Engineering Portfolio — Hà Bảo Nguyên
 
-These are ready-to-edit descriptions grounded in the implemented code and recorded evaluation. They intentionally avoid claims of production deployment or enterprise adoption.
+**AI Engineer Intern / Fresher · Python · RAG · Applied Machine Learning · MLOps**  
+Da Nang, Vietnam · [Email](mailto:nguyenha.300102@gmail.com) · [GitHub](https://github.com/bryandhpir)
 
-## Project title
+I have completed the Information Technology coursework at the University of Danang – Vietnam-Korea University (VKU); degree conferral is pending the English exit requirement. My personal projects emphasize traceable experiments, data validation, working Python services, and practical engineering trade-offs.
 
-**Enterprise AI Knowledge Assistant — Multilingual RAG Chatbot**
+> **Project scope:** Both systems are portfolio prototypes. All reported metrics come from documented, small-scale or offline local evaluations; they are not independently validated production accuracy or deployment claims.
 
-**Stack:** Python · FastAPI · Sentence Transformers · ChromaDB · Google Gemini · Streamlit · Pytest
+## Featured projects
 
-## CV — concise version (English)
+### 1. [Enterprise AI Knowledge Assistant](https://github.com/bryandhpir/enterprise-ai-knowledge-assistant)
 
-**Enterprise AI Knowledge Assistant | Personal AI Engineering Project**
+**Vietnamese-answering retrieval-augmented IT documentation assistant · 2026**
 
-- Built a multilingual RAG application for sample IT-support documents using FastAPI, Sentence Transformers, ChromaDB, and Gemini, with a locally tested Streamlit chat interface.
-- Implemented structure-aware document chunking, semantic retrieval, source metadata, basic citation checks, and fallback behavior for unsupported questions.
-- Evaluated retrieval and answer-generation behavior: V2 achieved **100% Hit@3 on 10 development questions**; on an **8-case RAG evaluation**, observed **80% source hit**, **80% valid citation IDs**, and **100% refusal on 3 selected unanswerable cases**; documented retrieval failures and evaluation limitations.
+**Stack:** Python, FastAPI, Pydantic, Sentence Transformers, ChromaDB, Google Gemini API, Streamlit, Docker Compose, Pytest, GitHub Actions.
 
-## CV — short version (Vietnamese)
+**Challenge:** Answer questions about a small collection of sample internal IT guides with traceable source IDs, while identifying unanswered cases and retrieval failures.
 
-**Enterprise AI Knowledge Assistant | Dự án AI Engineering cá nhân**
+**What I implemented**
 
-- Xây dựng ứng dụng RAG hỏi đáp tài liệu IT mẫu với Python, FastAPI, Sentence Transformers, ChromaDB, Gemini và giao diện Streamlit chạy local.
-- Triển khai document chunking V1/V2, semantic search, context construction, prompt grounding, metadata trích dẫn và bộ kiểm thử Pytest.
-- Đánh giá bằng dữ liệu gán nhãn; ghi nhận Source Hit Rate 80% và Citation ID Valid Rate 80% trên 5 câu có thể trả lời, cùng 3/3 trường hợp từ chối đúng trong tập đánh giá nhỏ.
+- Parsed five fictional Markdown knowledge guides and compared fixed-window with section/paragraph-aware chunking; embedded the text with a multilingual Sentence Transformers model and stored it in persistent ChromaDB.
+- Built a FastAPI chatbot with a Streamlit interface, source-tagged evidence, Gemini answer generation, optional similarity threshold, citation-ID checks, and an insufficient-evidence fallback.
+- Compared three configurable retrieval modes: semantic baseline, experimental Multi-Query Retrieval with weighted Reciprocal Rank Fusion (RRF), and BM25-style lexical reranking over an expanded semantic candidate set.
+- Added optional *same-section neighboring chunk expansion* so a top-ranked passage can include the continuation of its section without changing the retrieval ranking or inventing additional similarity scores.
+- Containerized API and frontend services with Docker Compose and persistent volumes; automated Python tests and Docker image builds using GitHub Actions.
+- Maintained structured passage-level and end-to-end evaluation scripts, saved result files, and a qualitative review of generated answers.
 
-## GitHub summary (English)
+**Recorded evaluation — small curated development data**
 
-A multilingual enterprise IT knowledge-base assistant that retrieves semantic passages from Markdown documentation using local Sentence Transformers embeddings and ChromaDB, then generates Vietnamese answers with Google Gemini. The FastAPI backend exposes search and chat APIs; a Streamlit frontend provides interactive local chat. The repository includes chunking experiments, retrieval evaluations, basic answer guardrails, automated tests, and an honest failure-analysis report.
+| Observation | Result | Scope |
+| --- | --- | --- |
+| Passage Hit@3, dense retrieval | 5/8 (**62.5%**) | Eight labeled development questions |
+| Passage Hit@3, lexical reranking | 8/8 (**100%**) | Same questions, 80 candidates / lexical weight 0.65 |
+| Passage MRR@3 | **0.4583 → 0.7917** | Dense versus reranked passages |
+| Valid citation IDs, end-to-end | **5/8 → 8/8** | A separate 12-case run; eight answerable questions |
+| Manually assessed complete answers | **4/8 → 7/8** | Reranking alone versus reranking plus neighbors, one recorded run |
 
-## Interview explanation (60–90 seconds)
+**Trade-offs:** The correct source filename is not always the correct passage. Neighbor expansion helped with a split MFA-recovery instruction and a device-handover checklist, but it increases context size, and latency varied considerably across API calls. Valid citation IDs do not prove that a generated claim is supported. This is not an access-controlled enterprise deployment.
 
-> I built a document-grounded assistant for fictional enterprise IT support material. I first compared fixed-size and structure-aware chunking, then embedded the passages using a multilingual Sentence Transformers model and stored them in ChromaDB. For each question, FastAPI retrieves V2 passages, formats source-tagged context, and sends a grounding prompt to Gemini. The service returns an answer and retrieved source metadata, while Streamlit provides a chat interface. I added unit/API tests, optional similarity filtering, basic citation-ID validation, and an evaluation set with answerable and unanswerable cases. The results exposed a remote-access question where the correct VPN document was missed in top three, so my next priority is improving passage retrieval and claim-level citation verification.
+**Repository evidence:** [Project README](https://github.com/bryandhpir/enterprise-ai-knowledge-assistant) · [Passage evaluation](https://github.com/bryandhpir/enterprise-ai-knowledge-assistant/blob/main/evals/reports/passage_rerank_eval.json) · [Neighbor answer review](https://github.com/bryandhpir/enterprise-ai-knowledge-assistant/blob/main/docs/NEIGHBOR_CONTEXT_MANUAL_REVIEW.md) · [CI workflow](https://github.com/bryandhpir/enterprise-ai-knowledge-assistant/actions).
 
-## Likely interview questions and evidence-based answers
+### 2. [Sales Forecasting & MLOps Platform](https://github.com/bryandhpir/sales-forecasting-mlops-platform)
 
-**Why RAG instead of asking Gemini directly?**
+**Retail unit-sales forecasting, time-aware model evaluation, and reproducible ML engineering · 2026**
 
-It supplies relevant source context from a controlled set of documents. This helps the model answer institution-specific questions and provides references for inspection, but it does not guarantee the model is correct.
+**Stack:** Python, Pandas, NumPy, scikit-learn, SciPy, MLflow Tracking/Registry, FastAPI, Docker Compose, Pytest, GitHub Actions.
 
-**Why choose V2 chunking?**
+**Challenge:** Forecast sales by store and product family without accidentally using observed values that would have been unavailable at the forecast cutoff.
 
-V2 had stronger ranking metrics in the measured development and additional datasets. However, its advantage cannot be attributed to size alone because the embedded text also includes heading context. The additional dataset did not show a Hit@3 improvement.
+**What I implemented**
 
-**How do you handle hallucinations?**
+- Processed **3,000,888** historical Kaggle Store Sales records spanning **54 stores** and **33 product families**, with validation and reproducible data transformations.
+- Engineered calendar, lag and rolling history features; constructed training and prediction examples using cutoff-safe historical snapshots and time-aware rolling-origin backtesting.
+- Trained **HistGradientBoostingRegressor** with log-transformed target values and tracked/registered model artifacts with MLflow.
+- Created a FastAPI `/predict` endpoint for store–family unit-sales forecasts with a configurable horizon within the model's evaluated limit.
+- Added Docker Compose services for the API and MLflow, and GitHub Actions CI covering Python tests, container builds, and an API health check.
+- Developed **offline historical monitoring** for Kolmogorov–Smirnov (KS) feature-drift diagnostics and performance breakdowns by store, product family, cutoff, and forecast step.
 
-The prompt asks the model to use only retrieved context and to refuse when evidence is insufficient; optional similarity filtering and citation-ID checking provide additional basic guardrails. These are not substitutes for sentence-level grounding evaluation or access controls.
+**Saved offline backtesting result — one specified run**
 
-**What was your main failure case?**
+| Metric | Result |
+| --- | ---: |
+| Dataset rows | **3,000,888** |
+| Evaluation origins | **3** |
+| Horizon evaluated | **7 calendar days** |
+| Scored target observations | **37,422** |
+| Scored-target coverage | **100%** |
+| MAE | **79.01 sales units** |
+| RMSLE | **0.4488** |
 
-The remote-work access question did not retrieve the relevant VPN document in top three and led to a no-answer response. I would investigate query paraphrases, chunk boundaries, hybrid retrieval, reranking, and passage-level coverage.
+**Trade-offs:** These values describe an offline historical run and should not be interpreted as accuracy guaranteed for future stores or dates. Scored-target coverage means eligible observed targets were scored; it is **not** statistical prediction-interval coverage. Drift monitoring is historical and offline, not a live alerting system. The project is not a cloud production forecasting service.
 
-**Is the chatbot production-ready?**
+**Repository evidence:** [Source and tests](https://github.com/bryandhpir/sales-forecasting-mlops-platform) · [Model training guide](https://github.com/bryandhpir/sales-forecasting-mlops-platform/blob/main/docs/MODEL_TRAINING.md) · [API implementation](https://github.com/bryandhpir/sales-forecasting-mlops-platform/blob/main/src/api.py) · [CI workflow](https://github.com/bryandhpir/sales-forecasting-mlops-platform/actions).
 
-No. It is an educational portfolio prototype without authentication, fine-grained authorization, and production monitoring. Deployment and data-governance controls are important future engineering tasks.
+## Additional projects
 
-## Claims to avoid
+| Project | Practical focus |
+| --- | --- |
+| **E-commerce Data Warehouse** · Academic · 2023 | SQL Server, SSIS, star-schema dimensional modeling, ETL, FactOrders and data-quality checks |
+| **Fashion E-commerce Data Analysis** · Project assistance · 2025 | Data preparation and statistical analysis over 44,424 product records; two-way ANOVA on 26,752 complete cases |
+| **Laptop & Technology E-commerce Platform** · Graduation thesis · 2024 | Django/SQLite application with accounts, catalog, order administration and real-time chat |
 
-- “100% accurate RAG chatbot” — not supported by the evaluation.
-- “Production-deployed enterprise application” — not demonstrated.
-- “Verified factual citations” — current validation checks citation IDs, not whether claims are entailed by cited passages.
-- “100% out-of-scope detection” — the recorded 3/3 result applies only to three selected examples.
-- “Built a multi-turn conversational memory system” — the current frontend history does not automatically feed prior turns back to Gemini.
+## Technical skills
+
+- **Programming and data:** Python, SQL, Pandas, NumPy, SQL Server, SSMS, SSIS/ETL, SQLite, MySQL; Java and JavaScript/TypeScript fundamentals.
+- **AI and machine learning:** Retrieval-Augmented Generation, semantic retrieval, Sentence Transformers, ChromaDB, Gemini API, lexical reranking, scikit-learn, time-aware forecasting, model evaluation.
+- **Backend and MLOps:** FastAPI, Pydantic, Streamlit, REST APIs, MLflow Tracking/Registry, Docker Compose, GitHub Actions, Pytest, offline drift diagnostics.
+
+## Experience and education
+
+**Owner / Business Operator — AB Medical Grocery (2024–2025):** Small online retail operation, including sourcing, customer support, order handling, shipment tracking, inventory and financial records.
+
+**The University of Danang – Vietnam-Korea University (VKU), Information Technology (2020–2025):** Coursework completed; degree not yet conferred because the English exit requirement is pending.
+
+**FPT Global Software Talent:** Java Web Advance training, 88 hours; certificate `FA.DN.GST_2023.032`.
+
+## Interview summary
+
+> I developed two personal AI engineering projects that cover both LLM-based applications and conventional machine learning. For the RAG assistant, I tested document chunking, semantic search, query expansion, lexical reranking and neighboring context against labeled IT-support queries, then integrated FastAPI, Streamlit, Docker and CI. For the forecasting platform, I built cutoff-safe features and rolling-origin backtesting over a multi-store retail dataset, trained a Gradient Boosting model, tracked experiments with MLflow, served predictions through FastAPI and added container-based CI. I documented the measured outcomes alongside their limitations rather than treating a small experiment as production validation.
+
+---
+
+**Project status:** Working personal prototypes. Neither project demonstrates enterprise adoption, authenticated multi-tenant deployment, general production accuracy or cloud CD.
