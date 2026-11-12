@@ -1,0 +1,466 @@
+{
+  "generated_at": "2026-11-12T10:25:47.476205+00:00",
+  "dataset": "/app/evals/passage_eval_questions.json",
+  "collection": "it_knowledge_base_v2",
+  "top_k": 3,
+  "evaluation_scope": "Curated development cases; not independent holdout",
+  "rerank_strategy": "BM25-style lexical scoring + original-query cosine on wider dense candidates",
+  "summary": {
+    "baseline": {
+      "cases": 8,
+      "passage_hit_at_k": 0.625,
+      "source_hit_at_k": 1,
+      "mrr_at_k": 0.4583,
+      "mean_retrieval_seconds": 0.393
+    },
+    "rerank": {
+      "cases": 8,
+      "passage_hit_at_k": 0.875,
+      "source_hit_at_k": 1,
+      "mrr_at_k": 0.8125,
+      "mean_retrieval_seconds": 0.029
+    }
+  },
+  "rows": [
+    {
+      "id": "A01",
+      "question": "Tôi đã kết nối VPN thành công nhưng vẫn không mở được phần mềm kế toán của công ty, nên kiểm tra gì?",
+      "modes": {
+        "baseline": {
+          "passage_first_rank": null,
+          "passage_hit": false,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "vpn_access.md",
+              "chunk_index": 6,
+              "cosine_score": 0.6975
+            },
+            {
+              "source": "vpn_access.md",
+              "chunk_index": 4,
+              "cosine_score": 0.696
+            },
+            {
+              "source": "vpn_access.md",
+              "chunk_index": 3,
+              "cosine_score": 0.681
+            }
+          ],
+          "elapsed_seconds": 2.847
+        },
+        "rerank": {
+          "passage_first_rank": 1,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "vpn_access.md",
+              "chunk_index": 22,
+              "cosine_score": 0.678,
+              "rerank_score": 0.982401
+            },
+            {
+              "source": "vpn_access.md",
+              "chunk_index": 4,
+              "cosine_score": 0.696,
+              "rerank_score": 0.840373
+            },
+            {
+              "source": "vpn_access.md",
+              "chunk_index": 8,
+              "cosine_score": 0.6525,
+              "rerank_score": 0.743266
+            }
+          ],
+          "elapsed_seconds": 0.032
+        }
+      }
+    },
+    {
+      "id": "A02",
+      "question": "Tôi muốn dùng laptop cá nhân để truy cập tài nguyên của công ty khi đi công tác, điều kiện nào cần đáp ứng?",
+      "modes": {
+        "baseline": {
+          "passage_first_rank": 1,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "vpn_access.md",
+              "chunk_index": 23,
+              "cosine_score": 0.6029
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 2,
+              "cosine_score": 0.4618
+            },
+            {
+              "source": "device_setup.md",
+              "chunk_index": 24,
+              "cosine_score": 0.4589
+            }
+          ],
+          "elapsed_seconds": 0.042
+        },
+        "rerank": {
+          "passage_first_rank": 1,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "vpn_access.md",
+              "chunk_index": 23,
+              "cosine_score": 0.6029,
+              "rerank_score": 0.999764
+            },
+            {
+              "source": "security_policy.md",
+              "chunk_index": 4,
+              "cosine_score": 0.4324,
+              "rerank_score": 0.777829
+            },
+            {
+              "source": "device_setup.md",
+              "chunk_index": 2,
+              "cosine_score": 0.4057,
+              "rerank_score": 0.637335
+            }
+          ],
+          "elapsed_seconds": 0.03
+        }
+      }
+    },
+    {
+      "id": "A03",
+      "question": "Tôi bị mất điện thoại dùng để xác thực đăng nhập và không thể đặt lại mật khẩu, tôi phải xử lý thế nào?",
+      "modes": {
+        "baseline": {
+          "passage_first_rank": null,
+          "passage_hit": false,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "password_reset.md",
+              "chunk_index": 10,
+              "cosine_score": 0.6326
+            },
+            {
+              "source": "password_reset.md",
+              "chunk_index": 6,
+              "cosine_score": 0.6297
+            },
+            {
+              "source": "password_reset.md",
+              "chunk_index": 7,
+              "cosine_score": 0.6246
+            }
+          ],
+          "elapsed_seconds": 0.027
+        },
+        "rerank": {
+          "passage_first_rank": 1,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "password_reset.md",
+              "chunk_index": 14,
+              "cosine_score": 0.5873,
+              "rerank_score": 0.953667
+            },
+            {
+              "source": "password_reset.md",
+              "chunk_index": 1,
+              "cosine_score": 0.6025,
+              "rerank_score": 0.757701
+            },
+            {
+              "source": "password_reset.md",
+              "chunk_index": 3,
+              "cosine_score": 0.6192,
+              "rerank_score": 0.736547
+            }
+          ],
+          "elapsed_seconds": 0.031
+        }
+      }
+    },
+    {
+      "id": "A04",
+      "question": "Tôi vừa thay đổi mật khẩu tài khoản công ty nhưng ứng dụng email vẫn đòi mật khẩu cũ, cần làm gì?",
+      "modes": {
+        "baseline": {
+          "passage_first_rank": 1,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "password_reset.md",
+              "chunk_index": 20,
+              "cosine_score": 0.7671
+            },
+            {
+              "source": "password_reset.md",
+              "chunk_index": 6,
+              "cosine_score": 0.7157
+            },
+            {
+              "source": "password_reset.md",
+              "chunk_index": 21,
+              "cosine_score": 0.7118
+            }
+          ],
+          "elapsed_seconds": 0.044
+        },
+        "rerank": {
+          "passage_first_rank": 1,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "password_reset.md",
+              "chunk_index": 20,
+              "cosine_score": 0.7671,
+              "rerank_score": 1.0
+            },
+            {
+              "source": "password_reset.md",
+              "chunk_index": 21,
+              "cosine_score": 0.7118,
+              "rerank_score": 0.735047
+            },
+            {
+              "source": "password_reset.md",
+              "chunk_index": 6,
+              "cosine_score": 0.7157,
+              "rerank_score": 0.672981
+            }
+          ],
+          "elapsed_seconds": 0.028
+        }
+      }
+    },
+    {
+      "id": "A05",
+      "question": "Hộp thư trên trình duyệt có email mới nhưng Outlook trên laptop không cập nhật, nên xử lý ra sao?",
+      "modes": {
+        "baseline": {
+          "passage_first_rank": 1,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "email_support.md",
+              "chunk_index": 27,
+              "cosine_score": 0.7684
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 16,
+              "cosine_score": 0.642
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 17,
+              "cosine_score": 0.6247
+            }
+          ],
+          "elapsed_seconds": 0.071
+        },
+        "rerank": {
+          "passage_first_rank": 2,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "email_support.md",
+              "chunk_index": 4,
+              "cosine_score": 0.5509,
+              "rerank_score": 0.846769
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 27,
+              "cosine_score": 0.7684,
+              "rerank_score": 0.766524
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 16,
+              "cosine_score": 0.642,
+              "rerank_score": 0.631061
+            }
+          ],
+          "elapsed_seconds": 0.028
+        }
+      }
+    },
+    {
+      "id": "A06",
+      "question": "Tôi nhận email thúc giục xác thực lại tài khoản ngay qua một đường dẫn lạ, nên phản ứng thế nào?",
+      "modes": {
+        "baseline": {
+          "passage_first_rank": 3,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "email_support.md",
+              "chunk_index": 23,
+              "cosine_score": 0.6198
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 12,
+              "cosine_score": 0.5864
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 25,
+              "cosine_score": 0.5762
+            }
+          ],
+          "elapsed_seconds": 0.036
+        },
+        "rerank": {
+          "passage_first_rank": 1,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "email_support.md",
+              "chunk_index": 25,
+              "cosine_score": 0.5762,
+              "rerank_score": 0.779566
+            },
+            {
+              "source": "password_reset.md",
+              "chunk_index": 6,
+              "cosine_score": 0.4341,
+              "rerank_score": 0.727802
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 19,
+              "cosine_score": 0.5191,
+              "rerank_score": 0.687804
+            }
+          ],
+          "elapsed_seconds": 0.028
+        }
+      }
+    },
+    {
+      "id": "A07",
+      "question": "Trước khi bàn giao máy tính cho nhân viên mới, bộ phận IT phải kiểm tra những hạng mục nào?",
+      "modes": {
+        "baseline": {
+          "passage_first_rank": null,
+          "passage_hit": false,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "device_setup.md",
+              "chunk_index": 24,
+              "cosine_score": 0.6397
+            },
+            {
+              "source": "device_setup.md",
+              "chunk_index": 20,
+              "cosine_score": 0.6036
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 8,
+              "cosine_score": 0.5508
+            }
+          ],
+          "elapsed_seconds": 0.026
+        },
+        "rerank": {
+          "passage_first_rank": null,
+          "passage_hit": false,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "device_setup.md",
+              "chunk_index": 20,
+              "cosine_score": 0.6036,
+              "rerank_score": 0.956113
+            },
+            {
+              "source": "device_setup.md",
+              "chunk_index": 24,
+              "cosine_score": 0.6397,
+              "rerank_score": 0.874975
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 8,
+              "cosine_score": 0.5508,
+              "rerank_score": 0.756488
+            }
+          ],
+          "elapsed_seconds": 0.03
+        }
+      }
+    },
+    {
+      "id": "A08",
+      "question": "Nếu tôi gửi nhầm tệp chứa thông tin khách hàng cho người ngoài công ty, có nên xóa email và im lặng không?",
+      "modes": {
+        "baseline": {
+          "passage_first_rank": 3,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "email_support.md",
+              "chunk_index": 23,
+              "cosine_score": 0.6635
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 15,
+              "cosine_score": 0.6332
+            },
+            {
+              "source": "security_policy.md",
+              "chunk_index": 34,
+              "cosine_score": 0.6213
+            }
+          ],
+          "elapsed_seconds": 0.052
+        },
+        "rerank": {
+          "passage_first_rank": 1,
+          "passage_hit": true,
+          "source_hit": true,
+          "top_results": [
+            {
+              "source": "security_policy.md",
+              "chunk_index": 34,
+              "cosine_score": 0.6213,
+              "rerank_score": 0.820943
+            },
+            {
+              "source": "security_policy.md",
+              "chunk_index": 22,
+              "cosine_score": 0.3304,
+              "rerank_score": 0.662854
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 23,
+              "cosine_score": 0.6635,
+              "rerank_score": 0.631323
+            }
+          ],
+          "elapsed_seconds": 0.027
+        }
+      }
+    }
+  ]
+}

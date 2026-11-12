@@ -1,0 +1,1112 @@
+{
+  "generated_at": "2026-11-12T09:18:57.572909+00:00",
+  "dataset": "/app/evals/final_eval_questions.json",
+  "dataset_size": 12,
+  "cases_evaluated": 12,
+  "modes": [
+    "baseline",
+    "multi_query"
+  ],
+  "top_k": 3,
+  "min_similarity": "",
+  "collection": "it_knowledge_base_v2",
+  "evaluation_scope": "Curated challenge set, not independent/blinded holdout",
+  "summary": {
+    "baseline": {
+      "total": 12,
+      "answerable": 8,
+      "unanswerable": 4,
+      "errors": 0,
+      "source_hit_rate": 1.0,
+      "citation_id_valid_rate": 0.625,
+      "correct_refusal_rate": 1.0,
+      "average_latency_seconds": 3.698
+    },
+    "multi_query": {
+      "total": 12,
+      "answerable": 8,
+      "unanswerable": 4,
+      "errors": 0,
+      "source_hit_rate": 1.0,
+      "citation_id_valid_rate": 0.875,
+      "correct_refusal_rate": 1.0,
+      "average_latency_seconds": 8.706
+    }
+  },
+  "rows": [
+    {
+      "id": "A01",
+      "question": "Tôi đã kết nối VPN thành công nhưng vẫn không mở được phần mềm kế toán của công ty, nên kiểm tra gì?",
+      "mode": "baseline",
+      "answerable": true,
+      "expected_sources": [
+        "vpn_access.md"
+      ],
+      "review_focus": "VPN does not automatically grant application permission; request an access check through IT Helpdesk.",
+      "elapsed_seconds": 6.298,
+      "source_hit": true,
+      "citation_id_valid": false,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "vpn_access.md",
+          "chunk_index": 6,
+          "score": 0.6975
+        },
+        {
+          "id": "S2",
+          "source": "vpn_access.md",
+          "chunk_index": 4,
+          "score": 0.696
+        },
+        {
+          "id": "S3",
+          "source": "vpn_access.md",
+          "chunk_index": 3,
+          "score": 0.681
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "no",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Refused despite an answer being present in vpn_access.md (FAQ on accounting access); retrieved chunks 3/4/6 discuss setup and connection rather than missing application authorization. Wrong no-answer.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A01",
+      "question": "Tôi đã kết nối VPN thành công nhưng vẫn không mở được phần mềm kế toán của công ty, nên kiểm tra gì?",
+      "mode": "multi_query",
+      "answerable": true,
+      "expected_sources": [
+        "vpn_access.md"
+      ],
+      "review_focus": "VPN does not automatically grant application permission; request an access check through IT Helpdesk.",
+      "elapsed_seconds": 8.072,
+      "source_hit": true,
+      "citation_id_valid": false,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "vpn_access.md",
+          "chunk_index": 6,
+          "score": 0.6975
+        },
+        {
+          "id": "S2",
+          "source": "vpn_access.md",
+          "chunk_index": 4,
+          "score": 0.696
+        },
+        {
+          "id": "S3",
+          "source": "vpn_access.md",
+          "chunk_index": 3,
+          "score": 0.681
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "no",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Same unsupported no-answer as baseline. Multi-Query did not retrieve the directly relevant FAQ passage, vpn_access.md chunk 22.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A02",
+      "question": "Tôi muốn dùng laptop cá nhân để truy cập tài nguyên của công ty khi đi công tác, điều kiện nào cần đáp ứng?",
+      "mode": "baseline",
+      "answerable": true,
+      "expected_sources": [
+        "vpn_access.md",
+        "security_policy.md"
+      ],
+      "review_focus": "Company policy must permit personal devices, security requirements must be met, and remote access must be approved.",
+      "elapsed_seconds": 3.343,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Bạn có thể sử dụng máy tính cá nhân để kết nối (truy cập tài nguyên của công ty) khi chính sách doanh nghiệp cho phép và thiết bị của bạn phải đáp ứng yêu cầu bảo mật [S1].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "vpn_access.md",
+          "chunk_index": 23,
+          "score": 0.6029
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 2,
+          "score": 0.4618
+        },
+        {
+          "id": "S3",
+          "source": "device_setup.md",
+          "chunk_index": 24,
+          "score": 0.4589
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "yes",
+        "complete": "partial",
+        "claim_citations_supported": "yes",
+        "notes": "Correctly cites vpn_access.md chunk 23 for company policy and device security. Omits explicit remote-access approval, official VPN application, valid account/MFA and internet prerequisites relevant to the broader question.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A02",
+      "question": "Tôi muốn dùng laptop cá nhân để truy cập tài nguyên của công ty khi đi công tác, điều kiện nào cần đáp ứng?",
+      "mode": "multi_query",
+      "answerable": true,
+      "expected_sources": [
+        "vpn_access.md",
+        "security_policy.md"
+      ],
+      "review_focus": "Company policy must permit personal devices, security requirements must be met, and remote access must be approved.",
+      "elapsed_seconds": 6.667,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Bạn có thể dùng máy tính cá nhân để kết nối (truy cập tài nguyên của công ty) khi đáp ứng điều kiện: **chính sách doanh nghiệp cho phép và thiết bị đáp ứng yêu cầu bảo mật** [S1].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "vpn_access.md",
+          "chunk_index": 23,
+          "score": 0.6029
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 2,
+          "score": 0.4618
+        },
+        {
+          "id": "S3",
+          "source": "device_setup.md",
+          "chunk_index": 21,
+          "score": 0.458
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "yes",
+        "complete": "partial",
+        "claim_citations_supported": "yes",
+        "notes": "Correct citation to vpn_access.md chunk 23; concise but misses several remote access prerequisites/approval conditions.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A03",
+      "question": "Tôi bị mất điện thoại dùng để xác thực đăng nhập và không thể đặt lại mật khẩu, tôi phải xử lý thế nào?",
+      "mode": "baseline",
+      "answerable": true,
+      "expected_sources": [
+        "password_reset.md"
+      ],
+      "review_focus": "Contact official IT support for identity verification and MFA recovery; do not bypass MFA.",
+      "elapsed_seconds": 3.182,
+      "source_hit": true,
+      "citation_id_valid": false,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "password_reset.md",
+          "chunk_index": 10,
+          "score": 0.6326
+        },
+        {
+          "id": "S2",
+          "source": "password_reset.md",
+          "chunk_index": 6,
+          "score": 0.6297
+        },
+        {
+          "id": "S3",
+          "source": "password_reset.md",
+          "chunk_index": 7,
+          "score": 0.6246
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "no",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Incorrect no-answer: password_reset.md explicitly covers loss of MFA device, IT identity verification, and supported MFA recovery. Retrieved chunks 6/7/10 are generic reset steps rather than the pertinent special-case passage.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A03",
+      "question": "Tôi bị mất điện thoại dùng để xác thực đăng nhập và không thể đặt lại mật khẩu, tôi phải xử lý thế nào?",
+      "mode": "multi_query",
+      "answerable": true,
+      "expected_sources": [
+        "password_reset.md"
+      ],
+      "review_focus": "Contact official IT support for identity verification and MFA recovery; do not bypass MFA.",
+      "elapsed_seconds": 7.992,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Khi bạn không tự đặt lại được mật khẩu, IT sẽ hỗ trợ khôi phục qua công cụ quản trị được cấp quyền, ghi nhận mã ticket và thông báo cách đăng nhập lại [S2]. Sau đó, bạn cần xác nhận truy cập thành công để IT đóng ticket sau khi kiểm tra [S2]. \n\nNgoài ra, đối với các trường hợp đặc biệt, cần kiểm tra dấu hiệu truy cập bất thường và bạn chỉ đổi mật khẩu tại thiết bị và trang đăng nhập đáng tin cậy [S1].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "password_reset.md",
+          "chunk_index": 17,
+          "score": 0.6146
+        },
+        {
+          "id": "S2",
+          "source": "password_reset.md",
+          "chunk_index": 13,
+          "score": 0.6126
+        },
+        {
+          "id": "S3",
+          "source": "password_reset.md",
+          "chunk_index": 10,
+          "score": 0.6326
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "partial",
+        "complete": "partial",
+        "claim_citations_supported": "partial",
+        "notes": "Cited support for ticket/admin recovery exists in password_reset.md chunk 13. However, answer fails to advise contacting official IT for identity verification and re-enrollment of MFA, never says not to bypass MFA, and adds unrelated account-compromise advice from chunk 17. Missing chunk 14/15.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A04",
+      "question": "Tôi vừa thay đổi mật khẩu tài khoản công ty nhưng ứng dụng email vẫn đòi mật khẩu cũ, cần làm gì?",
+      "mode": "baseline",
+      "answerable": true,
+      "expected_sources": [
+        "password_reset.md",
+        "email_support.md"
+      ],
+      "review_focus": "Restart email application, sign in through approved flow, and raise a Helpdesk ticket if unresolved.",
+      "elapsed_seconds": 4.256,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Khi bạn vừa đổi mật khẩu nhưng ứng dụng email vẫn hỏi mật khẩu cũ, bạn cần đóng và mở lại ứng dụng, sau đó đăng nhập lại qua luồng chính thức [S1]. Nếu vẫn gặp lỗi, bạn hãy tạo một ticket kèm theo tên ứng dụng và thông báo lỗi [S1].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "password_reset.md",
+          "chunk_index": 20,
+          "score": 0.7671
+        },
+        {
+          "id": "S2",
+          "source": "password_reset.md",
+          "chunk_index": 6,
+          "score": 0.7157
+        },
+        {
+          "id": "S3",
+          "source": "password_reset.md",
+          "chunk_index": 21,
+          "score": 0.7118
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "yes",
+        "complete": "yes",
+        "claim_citations_supported": "yes",
+        "notes": "Correct and sufficient: restart the email application, authenticate via official flow, create an IT ticket with app/error if unresolved; cites password_reset.md chunk 20.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A04",
+      "question": "Tôi vừa thay đổi mật khẩu tài khoản công ty nhưng ứng dụng email vẫn đòi mật khẩu cũ, cần làm gì?",
+      "mode": "multi_query",
+      "answerable": true,
+      "expected_sources": [
+        "password_reset.md",
+        "email_support.md"
+      ],
+      "review_focus": "Restart email application, sign in through approved flow, and raise a Helpdesk ticket if unresolved.",
+      "elapsed_seconds": 7.676,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Khi bạn vừa đổi mật khẩu nhưng ứng dụng email vẫn yêu cầu mật khẩu cũ, bạn cần thực hiện các bước sau:\n\n1. Đóng và mở lại ứng dụng, sau đó đăng nhập lại qua luồng chính thức [S1].\n2. Nếu vẫn gặp lỗi này, hãy tạo một ticket kèm theo tên ứng dụng và thông báo lỗi để được hỗ trợ [S1].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "password_reset.md",
+          "chunk_index": 20,
+          "score": 0.7671
+        },
+        {
+          "id": "S2",
+          "source": "password_reset.md",
+          "chunk_index": 6,
+          "score": 0.7157
+        },
+        {
+          "id": "S3",
+          "source": "password_reset.md",
+          "chunk_index": 1,
+          "score": 0.7027
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "yes",
+        "complete": "yes",
+        "claim_citations_supported": "yes",
+        "notes": "Correct and sufficient; cites password_reset.md chunk 20 for both steps.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A05",
+      "question": "Hộp thư trên trình duyệt có email mới nhưng Outlook trên laptop không cập nhật, nên xử lý ra sao?",
+      "mode": "baseline",
+      "answerable": true,
+      "expected_sources": [
+        "email_support.md"
+      ],
+      "review_focus": "Compare webmail and app; restart/update or sign in again; provide application and OS details to IT if needed.",
+      "elapsed_seconds": 3.88,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Khi gặp tình trạng Webmail (hộp thư trên trình duyệt) hoạt động bình thường nhưng ứng dụng Outlook không nhận/cập nhật thư, khả năng cao vấn đề nằm ở ứng dụng, phiên đăng nhập hoặc đồng bộ trên thiết bị [S1]. Bạn có thể xử lý theo các bước sau:\n\n1. **Ghi nhận lỗi** [S1].\n2. **So sánh hộp thư** trên webmail và ứng dụng [S2].\n3. **Thực hiện các thao tác xử lý trên ứng dụng:** Đóng và mở lại ứng dụng, kiểm tra cập nhật, sau đó đăng nhập lại theo hướng dẫn IT hoặc qua quy trình chính thức nếu được yêu cầu [S1, S2].\n4. **Nếu lỗi chỉ xuất hiện trên một thiết bị (laptop):** Hãy gửi thông tin về phiên bản ứng dụng và hệ điều hành cho bộ phận IT [S2, S3].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 27,
+          "score": 0.7684
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 16,
+          "score": 0.642
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 17,
+          "score": 0.6247
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "yes",
+        "complete": "yes",
+        "claim_citations_supported": "partial",
+        "notes": "Correct diagnosis and steps, including app/OS information if one-device issue. Some combined '[S1, S2]' / '[S2, S3]' citations are not individually parsed by the current regex-style citation validator; source support is otherwise visible in email_support.md chunks 16/17/27.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A05",
+      "question": "Hộp thư trên trình duyệt có email mới nhưng Outlook trên laptop không cập nhật, nên xử lý ra sao?",
+      "mode": "multi_query",
+      "answerable": true,
+      "expected_sources": [
+        "email_support.md"
+      ],
+      "review_focus": "Compare webmail and app; restart/update or sign in again; provide application and OS details to IT if needed.",
+      "elapsed_seconds": 7.443,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Khi gặp tình trạng Webmail (hộp thư trên trình duyệt) hoạt động nhưng Outlook trên thiết bị không nhận thư, khả năng cao vấn đề nằm ở ứng dụng, phiên đăng nhập hoặc đồng bộ trên thiết bị [S1]. Bạn có thể xử lý theo các bước sau:\n\n1. Ghi nhận lỗi và so sánh hộp thư trên webmail và ứng dụng [S1, S2].\n2. Đóng và mở lại ứng dụng Outlook [S2].\n3. Kiểm tra cập nhật và đăng nhập lại theo hướng dẫn của IT hoặc qua quy trình chính thức [S1, S2].\n4. Nếu lỗi chỉ xuất hiện trên một thiết bị, hãy gửi thông tin để được hỗ trợ thêm [S2].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 27,
+          "score": 0.7684
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 16,
+          "score": 0.642
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 1,
+          "score": 0.6062
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "yes",
+        "complete": "partial",
+        "claim_citations_supported": "partial",
+        "notes": "Correct troubleshooting steps, but 'send information to IT' omits required app version and OS details. Combined '[S1, S2]' citation format is not reliably parsed as separate IDs; underlying retrieved chunk 16 supports most guidance.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A06",
+      "question": "Tôi nhận email thúc giục xác thực lại tài khoản ngay qua một đường dẫn lạ, nên phản ứng thế nào?",
+      "mode": "baseline",
+      "answerable": true,
+      "expected_sources": [
+        "email_support.md",
+        "security_policy.md"
+      ],
+      "review_focus": "Avoid clicking link or sharing credentials; report phishing through official channel.",
+      "elapsed_seconds": 3.64,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Khi nhận được email yêu cầu xác thực lại mật khẩu (hoặc tài khoản) qua một đường dẫn lạ/trong thời gian ngắn, bạn nên thực hiện các bước sau:\n\n* Không làm theo liên kết có trong email [S3].\n* Kiểm tra thông báo qua cổng nội bộ hoặc liên hệ với bộ phận IT chính thức [S3].\n* Báo cáo email đáng ngờ này [S3].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 23,
+          "score": 0.6198
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 12,
+          "score": 0.5864
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 25,
+          "score": 0.5762
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "yes",
+        "complete": "yes",
+        "claim_citations_supported": "yes",
+        "notes": "Correct refusal to follow suspicious link, official verification, and reporting; supported by email_support.md chunk 25.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A06",
+      "question": "Tôi nhận email thúc giục xác thực lại tài khoản ngay qua một đường dẫn lạ, nên phản ứng thế nào?",
+      "mode": "multi_query",
+      "answerable": true,
+      "expected_sources": [
+        "email_support.md",
+        "security_policy.md"
+      ],
+      "review_focus": "Avoid clicking link or sharing credentials; report phishing through official channel.",
+      "elapsed_seconds": 31.332,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Khi bạn nhận được email yêu cầu xác thực lại tài khoản (hoặc mật khẩu) qua một đường dẫn lạ, bạn nên thực hiện các phản ứng sau:\n\n1. **Không làm theo liên kết** có trong email [S2].\n2. **Kiểm tra thông báo** qua cổng nội bộ hoặc liên hệ với bộ phận IT chính thức [S2].\n3. **Báo cáo thư đáng** ngờ này [S2]. \n\nNgoài ra, đây cũng có thể được coi là trường hợp có thư nghi lừa đảo gửi tới, bạn nên xem xét báo cáo khẩn theo quy định [S1].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 23,
+          "score": 0.6198
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 25,
+          "score": 0.5762
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 13,
+          "score": 0.5469
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "partial",
+        "complete": "partial",
+        "claim_citations_supported": "partial",
+        "notes": "Correct primary steps cite email_support.md chunk 25. Extra advice to consider urgent reporting cites chunk 23, which specifies phishing affecting multiple people; a single suspicious email alone does not establish that condition. Avoid overstatement.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A07",
+      "question": "Trước khi bàn giao máy tính cho nhân viên mới, bộ phận IT phải kiểm tra những hạng mục nào?",
+      "mode": "baseline",
+      "answerable": true,
+      "expected_sources": [
+        "device_setup.md"
+      ],
+      "review_focus": "Login, required apps, MFA, approved VPN, device security, asset and handover records.",
+      "elapsed_seconds": 2.795,
+      "source_hit": true,
+      "citation_id_valid": false,
+      "correct_refusal": null,
+      "citation_failed": true,
+      "answer": "Tôi chưa thể tạo câu trả lời có trích dẫn nguồn hợp lệ.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "device_setup.md",
+          "chunk_index": 24,
+          "score": 0.6397
+        },
+        {
+          "id": "S2",
+          "source": "device_setup.md",
+          "chunk_index": 20,
+          "score": 0.6036
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 8,
+          "score": 0.5508
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "no",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Citation failure fallback; retrieved device_setup.md chunks 20/24 focus on employees/FAQ, missing IT pre-handover checklist (chunk 16) and handover records (chunk 18).",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A07",
+      "question": "Trước khi bàn giao máy tính cho nhân viên mới, bộ phận IT phải kiểm tra những hạng mục nào?",
+      "mode": "multi_query",
+      "answerable": true,
+      "expected_sources": [
+        "device_setup.md"
+      ],
+      "review_focus": "Login, required apps, MFA, approved VPN, device security, asset and handover records.",
+      "elapsed_seconds": 7.068,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp để trả lời câu hỏi về việc bộ phận IT phải kiểm tra những hạng mục nào trước khi bàn giao máy tính cho nhân viên mới. (Tài liệu chỉ đề cập đến quy trình kiểm tra của nhân viên mới trong ngày đầu nhận máy là: \"Kiểm tra tình trạng thiết bị và phụ kiện theo biên bản\" [S2]).",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "device_setup.md",
+          "chunk_index": 24,
+          "score": 0.6397
+        },
+        {
+          "id": "S2",
+          "source": "device_setup.md",
+          "chunk_index": 20,
+          "score": 0.6036
+        },
+        {
+          "id": "S3",
+          "source": "device_setup.md",
+          "chunk_index": 21,
+          "score": 0.537
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "no",
+        "complete": "no",
+        "claim_citations_supported": "partial",
+        "notes": "Misleadingly claims documentation only covers employee checks, although device_setup.md explicitly includes IT testing before handover and handover steps. Citation S2 supports the quoted employee checklist, not the broader assertion of missing IT guidance. Retrieved chunks 20/21/24 instead of chunk 16.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A08",
+      "question": "Nếu tôi gửi nhầm tệp chứa thông tin khách hàng cho người ngoài công ty, có nên xóa email và im lặng không?",
+      "mode": "baseline",
+      "answerable": true,
+      "expected_sources": [
+        "security_policy.md",
+        "email_support.md"
+      ],
+      "review_focus": "Do not quietly delete evidence; report promptly to official IT/Security channel.",
+      "elapsed_seconds": 3.293,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Không, bạn không nên xóa email rồi bỏ qua [S3]. Khi gửi nhầm file chứa thông tin nhạy cảm cho người ngoài, bạn cần báo ngay cho bộ phận Security/IT để được đánh giá và xử lý theo quy trình [S3].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 23,
+          "score": 0.6635
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 15,
+          "score": 0.6332
+        },
+        {
+          "id": "S3",
+          "source": "security_policy.md",
+          "chunk_index": 34,
+          "score": 0.6213
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "yes",
+        "complete": "yes",
+        "claim_citations_supported": "yes",
+        "notes": "Correct not to quietly delete an email; report promptly to Security/IT. Exact FAQ in security_policy.md chunk 34 supports cited S3.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "A08",
+      "question": "Nếu tôi gửi nhầm tệp chứa thông tin khách hàng cho người ngoài công ty, có nên xóa email và im lặng không?",
+      "mode": "multi_query",
+      "answerable": true,
+      "expected_sources": [
+        "security_policy.md",
+        "email_support.md"
+      ],
+      "review_focus": "Do not quietly delete evidence; report promptly to official IT/Security channel.",
+      "elapsed_seconds": 6.606,
+      "source_hit": true,
+      "citation_id_valid": true,
+      "correct_refusal": null,
+      "citation_failed": false,
+      "answer": "Không, bạn không nên xóa email rồi bỏ qua [S3]. Khi bạn gửi nhầm file cho người ngoài, bạn cần báo ngay cho bộ phận Security/IT để được đánh giá và xử lý theo quy trình [S3].",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 23,
+          "score": 0.6635
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 15,
+          "score": 0.6332
+        },
+        {
+          "id": "S3",
+          "source": "security_policy.md",
+          "chunk_index": 34,
+          "score": 0.6213
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "yes",
+        "complete": "yes",
+        "claim_citations_supported": "yes",
+        "notes": "Correct and source-supported; security_policy.md chunk 34 is cited.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "U01",
+      "question": "Đội nào thắng trận bóng đá tối qua và tỷ số chính xác là bao nhiêu?",
+      "mode": "baseline",
+      "answerable": false,
+      "expected_sources": [],
+      "review_focus": "Refuse to infer live sports results from the sample IT documents.",
+      "elapsed_seconds": 3.659,
+      "source_hit": null,
+      "citation_id_valid": null,
+      "correct_refusal": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 26,
+          "score": 0.1574
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 23,
+          "score": 0.1419
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 24,
+          "score": 0.122
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "not_applicable",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Appropriate no-evidence refusal for this test case.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "U01",
+      "question": "Đội nào thắng trận bóng đá tối qua và tỷ số chính xác là bao nhiêu?",
+      "mode": "multi_query",
+      "answerable": false,
+      "expected_sources": [],
+      "review_focus": "Refuse to infer live sports results from the sample IT documents.",
+      "elapsed_seconds": 6.571,
+      "source_hit": null,
+      "citation_id_valid": null,
+      "correct_refusal": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 26,
+          "score": 0.1574
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 23,
+          "score": 0.1419
+        },
+        {
+          "id": "S3",
+          "source": "password_reset.md",
+          "chunk_index": 13,
+          "score": 0.1117
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "not_applicable",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Appropriate no-evidence refusal for this test case.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "U02",
+      "question": "Mật khẩu VPN của đồng nghiệp tôi là gì?",
+      "mode": "baseline",
+      "answerable": false,
+      "expected_sources": [],
+      "review_focus": "Do not disclose or invent another person's credentials.",
+      "elapsed_seconds": 3.581,
+      "source_hit": null,
+      "citation_id_valid": null,
+      "correct_refusal": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "password_reset.md",
+          "chunk_index": 22,
+          "score": 0.7931
+        },
+        {
+          "id": "S2",
+          "source": "vpn_access.md",
+          "chunk_index": 20,
+          "score": 0.7213
+        },
+        {
+          "id": "S3",
+          "source": "vpn_access.md",
+          "chunk_index": 21,
+          "score": 0.7046
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "not_applicable",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Appropriate no-evidence refusal for this test case.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "U02",
+      "question": "Mật khẩu VPN của đồng nghiệp tôi là gì?",
+      "mode": "multi_query",
+      "answerable": false,
+      "expected_sources": [],
+      "review_focus": "Do not disclose or invent another person's credentials.",
+      "elapsed_seconds": 0.0,
+      "source_hit": null,
+      "citation_id_valid": null,
+      "correct_refusal": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [],
+      "model": null,
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "not_applicable",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Appropriate no-evidence refusal for this test case. Local rule returned immediately without LLM (elapsed time rounded to 0.000 s); latency comparisons should distinguish short-circuited requests.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "U03",
+      "question": "Mức lương tháng này của nhân viên Nguyễn Văn A trong công ty là bao nhiêu?",
+      "mode": "baseline",
+      "answerable": false,
+      "expected_sources": [],
+      "review_focus": "The provided corpus contains no individual compensation data.",
+      "elapsed_seconds": 3.603,
+      "source_hit": null,
+      "citation_id_valid": null,
+      "correct_refusal": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "device_setup.md",
+          "chunk_index": 24,
+          "score": 0.2355
+        },
+        {
+          "id": "S2",
+          "source": "vpn_access.md",
+          "chunk_index": 24,
+          "score": 0.209
+        },
+        {
+          "id": "S3",
+          "source": "device_setup.md",
+          "chunk_index": 3,
+          "score": 0.1729
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "not_applicable",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Appropriate no-evidence refusal for this test case.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "U03",
+      "question": "Mức lương tháng này của nhân viên Nguyễn Văn A trong công ty là bao nhiêu?",
+      "mode": "multi_query",
+      "answerable": false,
+      "expected_sources": [],
+      "review_focus": "The provided corpus contains no individual compensation data.",
+      "elapsed_seconds": 7.694,
+      "source_hit": null,
+      "citation_id_valid": null,
+      "correct_refusal": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "device_setup.md",
+          "chunk_index": 24,
+          "score": 0.2355
+        },
+        {
+          "id": "S2",
+          "source": "vpn_access.md",
+          "chunk_index": 24,
+          "score": 0.209
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 1,
+          "score": 0.1719
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "not_applicable",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Appropriate no-evidence refusal for this test case.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "U04",
+      "question": "Ngày mai công ty có thông báo nghỉ đột xuất hay không?",
+      "mode": "baseline",
+      "answerable": false,
+      "expected_sources": [],
+      "review_focus": "The provided corpus contains no live company notices or schedules.",
+      "elapsed_seconds": 2.843,
+      "source_hit": null,
+      "citation_id_valid": null,
+      "correct_refusal": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 23,
+          "score": 0.3959
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 26,
+          "score": 0.3676
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 25,
+          "score": 0.3428
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "not_applicable",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Appropriate no-evidence refusal for this test case.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    },
+    {
+      "id": "U04",
+      "question": "Ngày mai công ty có thông báo nghỉ đột xuất hay không?",
+      "mode": "multi_query",
+      "answerable": false,
+      "expected_sources": [],
+      "review_focus": "The provided corpus contains no live company notices or schedules.",
+      "elapsed_seconds": 7.353,
+      "source_hit": null,
+      "citation_id_valid": null,
+      "correct_refusal": true,
+      "citation_failed": false,
+      "answer": "Tôi không tìm thấy đủ thông tin trong tài liệu được cung cấp.",
+      "sources": [
+        {
+          "id": "S1",
+          "source": "email_support.md",
+          "chunk_index": 23,
+          "score": 0.3959
+        },
+        {
+          "id": "S2",
+          "source": "email_support.md",
+          "chunk_index": 26,
+          "score": 0.3676
+        },
+        {
+          "id": "S3",
+          "source": "email_support.md",
+          "chunk_index": 25,
+          "score": 0.3428
+        }
+      ],
+      "model": "gemini-3.5-flash-lite",
+      "error": null,
+      "manual_review": {
+        "grounded": "not_applicable",
+        "complete": "not_applicable",
+        "claim_citations_supported": "not_applicable",
+        "notes": "Appropriate no-evidence refusal for this test case.",
+        "review_scope": "Qualitative review of saved output and corresponding repository document passages; not a blinded review."
+      }
+    }
+  ],
+  "human_review_summary": {
+    "basis": "Saved response text and source markdown; completeness/citation labels are qualitative and require independent confirmation for high-stakes use.",
+    "answerable_case_completeness": {
+      "baseline": {
+        "no": 3,
+        "partial": 1,
+        "yes": 4
+      },
+      "multi_query": {
+        "no": 2,
+        "partial": 4,
+        "yes": 2
+      }
+    },
+    "observed_passage_misses": [
+      "A01",
+      "A03 baseline",
+      "A07"
+    ],
+    "recommendation": "Keep baseline as default for speed; multi_query opt-in, pending passage-level retrieval improvements, claim-level citation verification, non-regression evaluation, and intent drift controls."
+  }
+}

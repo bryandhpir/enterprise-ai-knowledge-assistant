@@ -1,0 +1,50 @@
+[
+  {
+    "id": "A01", "query": "Tôi đã kết nối VPN thành công nhưng vẫn không mở được phần mềm kế toán của công ty, nên kiểm tra gì?",
+    "relevant_sources": ["vpn_access.md"],
+    "relevant_passages": [{"source": "vpn_access.md", "chunk_index": 22}],
+    "note": "FAQ: VPN connected but accounting application permissions missing."
+  },
+  {
+    "id": "A02", "query": "Tôi muốn dùng laptop cá nhân để truy cập tài nguyên của công ty khi đi công tác, điều kiện nào cần đáp ứng?",
+    "relevant_sources": ["vpn_access.md", "security_policy.md"],
+    "relevant_passages": [{"source": "vpn_access.md", "chunk_index": 23}, {"source": "vpn_access.md", "chunk_index": 3}],
+    "note": "Personal-device policy and remote-connection prerequisites."
+  },
+  {
+    "id": "A03", "query": "Tôi bị mất điện thoại dùng để xác thực đăng nhập và không thể đặt lại mật khẩu, tôi phải xử lý thế nào?",
+    "relevant_sources": ["password_reset.md"],
+    "relevant_passages": [{"source": "password_reset.md", "chunk_index": 14}, {"source": "password_reset.md", "chunk_index": 15}],
+    "note": "Lost MFA device: do not bypass; contact official IT for verification and recovery."
+  },
+  {
+    "id": "A04", "query": "Tôi vừa thay đổi mật khẩu tài khoản công ty nhưng ứng dụng email vẫn đòi mật khẩu cũ, cần làm gì?",
+    "relevant_sources": ["password_reset.md", "email_support.md"],
+    "relevant_passages": [{"source": "password_reset.md", "chunk_index": 20}],
+    "note": "Password changed; email still requests old password."
+  },
+  {
+    "id": "A05", "query": "Hộp thư trên trình duyệt có email mới nhưng Outlook trên laptop không cập nhật, nên xử lý ra sao?",
+    "relevant_sources": ["email_support.md"],
+    "relevant_passages": [{"source": "email_support.md", "chunk_index": 16}, {"source": "email_support.md", "chunk_index": 27}],
+    "note": "Webmail works, Outlook not syncing."
+  },
+  {
+    "id": "A06", "query": "Tôi nhận email thúc giục xác thực lại tài khoản ngay qua một đường dẫn lạ, nên phản ứng thế nào?",
+    "relevant_sources": ["email_support.md", "security_policy.md"],
+    "relevant_passages": [{"source": "email_support.md", "chunk_index": 25}],
+    "note": "Suspicious email verification link; report phishing."
+  },
+  {
+    "id": "A07", "query": "Trước khi bàn giao máy tính cho nhân viên mới, bộ phận IT phải kiểm tra những hạng mục nào?",
+    "relevant_sources": ["device_setup.md"],
+    "relevant_passages": [{"source": "device_setup.md", "chunk_index": 16}, {"source": "device_setup.md", "chunk_index": 18}],
+    "note": "IT pre-handover checklist and asset handover steps."
+  },
+  {
+    "id": "A08", "query": "Nếu tôi gửi nhầm tệp chứa thông tin khách hàng cho người ngoài công ty, có nên xóa email và im lặng không?",
+    "relevant_sources": ["security_policy.md", "email_support.md"],
+    "relevant_passages": [{"source": "security_policy.md", "chunk_index": 34}],
+    "note": "Report mistaken disclosure; do not delete evidence."
+  }
+]
