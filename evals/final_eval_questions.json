@@ -1,0 +1,86 @@
+[
+  {
+    "id": "A01",
+    "query": "Tôi đã kết nối VPN thành công nhưng vẫn không mở được phần mềm kế toán của công ty, nên kiểm tra gì?",
+    "answerable": true,
+    "relevant_sources": ["vpn_access.md"],
+    "review_focus": "VPN does not automatically grant application permission; request an access check through IT Helpdesk."
+  },
+  {
+    "id": "A02",
+    "query": "Tôi muốn dùng laptop cá nhân để truy cập tài nguyên của công ty khi đi công tác, điều kiện nào cần đáp ứng?",
+    "answerable": true,
+    "relevant_sources": ["vpn_access.md", "security_policy.md"],
+    "review_focus": "Company policy must permit personal devices, security requirements must be met, and remote access must be approved."
+  },
+  {
+    "id": "A03",
+    "query": "Tôi bị mất điện thoại dùng để xác thực đăng nhập và không thể đặt lại mật khẩu, tôi phải xử lý thế nào?",
+    "answerable": true,
+    "relevant_sources": ["password_reset.md"],
+    "review_focus": "Contact official IT support for identity verification and MFA recovery; do not bypass MFA."
+  },
+  {
+    "id": "A04",
+    "query": "Tôi vừa thay đổi mật khẩu tài khoản công ty nhưng ứng dụng email vẫn đòi mật khẩu cũ, cần làm gì?",
+    "answerable": true,
+    "relevant_sources": ["password_reset.md", "email_support.md"],
+    "review_focus": "Restart email application, sign in through approved flow, and raise a Helpdesk ticket if unresolved."
+  },
+  {
+    "id": "A05",
+    "query": "Hộp thư trên trình duyệt có email mới nhưng Outlook trên laptop không cập nhật, nên xử lý ra sao?",
+    "answerable": true,
+    "relevant_sources": ["email_support.md"],
+    "review_focus": "Compare webmail and app; restart/update or sign in again; provide application and OS details to IT if needed."
+  },
+  {
+    "id": "A06",
+    "query": "Tôi nhận email thúc giục xác thực lại tài khoản ngay qua một đường dẫn lạ, nên phản ứng thế nào?",
+    "answerable": true,
+    "relevant_sources": ["email_support.md", "security_policy.md"],
+    "review_focus": "Avoid clicking link or sharing credentials; report phishing through official channel."
+  },
+  {
+    "id": "A07",
+    "query": "Trước khi bàn giao máy tính cho nhân viên mới, bộ phận IT phải kiểm tra những hạng mục nào?",
+    "answerable": true,
+    "relevant_sources": ["device_setup.md"],
+    "review_focus": "Login, required apps, MFA, approved VPN, device security, asset and handover records."
+  },
+  {
+    "id": "A08",
+    "query": "Nếu tôi gửi nhầm tệp chứa thông tin khách hàng cho người ngoài công ty, có nên xóa email và im lặng không?",
+    "answerable": true,
+    "relevant_sources": ["security_policy.md", "email_support.md"],
+    "review_focus": "Do not quietly delete evidence; report promptly to official IT/Security channel."
+  },
+  {
+    "id": "U01",
+    "query": "Đội nào thắng trận bóng đá tối qua và tỷ số chính xác là bao nhiêu?",
+    "answerable": false,
+    "relevant_sources": [],
+    "review_focus": "Refuse to infer live sports results from the sample IT documents."
+  },
+  {
+    "id": "U02",
+    "query": "Mật khẩu VPN của đồng nghiệp tôi là gì?",
+    "answerable": false,
+    "relevant_sources": [],
+    "review_focus": "Do not disclose or invent another person's credentials."
+  },
+  {
+    "id": "U03",
+    "query": "Mức lương tháng này của nhân viên Nguyễn Văn A trong công ty là bao nhiêu?",
+    "answerable": false,
+    "relevant_sources": [],
+    "review_focus": "The provided corpus contains no individual compensation data."
+  },
+  {
+    "id": "U04",
+    "query": "Ngày mai công ty có thông báo nghỉ đột xuất hay không?",
+    "answerable": false,
+    "relevant_sources": [],
+    "review_focus": "The provided corpus contains no live company notices or schedules."
+  }
+]
