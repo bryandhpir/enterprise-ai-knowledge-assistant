@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T10:25:47.476205+00:00",
+  "generated_at": "2026-11-12T12:17:28.145564+00:00",
   "dataset": "/app/evals/passage_eval_questions.json",
   "collection": "it_knowledge_base_v2",
   "top_k": 3,
@@ -11,14 +11,14 @@
       "passage_hit_at_k": 0.625,
       "source_hit_at_k": 1,
       "mrr_at_k": 0.4583,
-      "mean_retrieval_seconds": 0.393
+      "mean_retrieval_seconds": 0.47
     },
     "rerank": {
       "cases": 8,
-      "passage_hit_at_k": 0.875,
+      "passage_hit_at_k": 1,
       "source_hit_at_k": 1,
-      "mrr_at_k": 0.8125,
-      "mean_retrieval_seconds": 0.029
+      "mrr_at_k": 0.7917,
+      "mean_retrieval_seconds": 0.05
     }
   },
   "rows": [
@@ -47,7 +47,7 @@
               "cosine_score": 0.681
             }
           ],
-          "elapsed_seconds": 2.847
+          "elapsed_seconds": 3.277
         },
         "rerank": {
           "passage_first_rank": 1,
@@ -58,22 +58,22 @@
               "source": "vpn_access.md",
               "chunk_index": 22,
               "cosine_score": 0.678,
-              "rerank_score": 0.982401
+              "rerank_score": 0.984742
             },
             {
               "source": "vpn_access.md",
               "chunk_index": 4,
               "cosine_score": 0.696,
-              "rerank_score": 0.840373
+              "rerank_score": 0.762866
             },
             {
               "source": "vpn_access.md",
               "chunk_index": 8,
               "cosine_score": 0.6525,
-              "rerank_score": 0.743266
+              "rerank_score": 0.726926
             }
           ],
-          "elapsed_seconds": 0.032
+          "elapsed_seconds": 0.04
         }
       }
     },
@@ -102,7 +102,7 @@
               "cosine_score": 0.4589
             }
           ],
-          "elapsed_seconds": 0.042
+          "elapsed_seconds": 0.066
         },
         "rerank": {
           "passage_first_rank": 1,
@@ -113,22 +113,22 @@
               "source": "vpn_access.md",
               "chunk_index": 23,
               "cosine_score": 0.6029,
-              "rerank_score": 0.999764
+              "rerank_score": 0.828031
             },
             {
               "source": "security_policy.md",
               "chunk_index": 4,
               "cosine_score": 0.4324,
-              "rerank_score": 0.777829
+              "rerank_score": 0.720573
             },
             {
-              "source": "device_setup.md",
-              "chunk_index": 2,
-              "cosine_score": 0.4057,
-              "rerank_score": 0.637335
+              "source": "password_reset.md",
+              "chunk_index": 21,
+              "cosine_score": 0.3147,
+              "rerank_score": 0.684683
             }
           ],
-          "elapsed_seconds": 0.03
+          "elapsed_seconds": 0.037
         }
       }
     },
@@ -157,7 +157,7 @@
               "cosine_score": 0.6246
             }
           ],
-          "elapsed_seconds": 0.027
+          "elapsed_seconds": 0.038
         },
         "rerank": {
           "passage_first_rank": 1,
@@ -168,22 +168,22 @@
               "source": "password_reset.md",
               "chunk_index": 14,
               "cosine_score": 0.5873,
-              "rerank_score": 0.953667
+              "rerank_score": 0.960303
             },
             {
               "source": "password_reset.md",
               "chunk_index": 1,
               "cosine_score": 0.6025,
-              "rerank_score": 0.757701
+              "rerank_score": 0.801146
             },
             {
               "source": "password_reset.md",
-              "chunk_index": 3,
-              "cosine_score": 0.6192,
-              "rerank_score": 0.736547
+              "chunk_index": 9,
+              "cosine_score": 0.5956,
+              "rerank_score": 0.778357
             }
           ],
-          "elapsed_seconds": 0.031
+          "elapsed_seconds": 0.051
         }
       }
     },
@@ -212,7 +212,7 @@
               "cosine_score": 0.7118
             }
           ],
-          "elapsed_seconds": 0.044
+          "elapsed_seconds": 0.049
         },
         "rerank": {
           "passage_first_rank": 1,
@@ -229,16 +229,16 @@
               "source": "password_reset.md",
               "chunk_index": 21,
               "cosine_score": 0.7118,
-              "rerank_score": 0.735047
+              "rerank_score": 0.778793
             },
             {
               "source": "password_reset.md",
               "chunk_index": 6,
               "cosine_score": 0.7157,
-              "rerank_score": 0.672981
+              "rerank_score": 0.707715
             }
           ],
-          "elapsed_seconds": 0.028
+          "elapsed_seconds": 0.076
         }
       }
     },
@@ -267,7 +267,7 @@
               "cosine_score": 0.6247
             }
           ],
-          "elapsed_seconds": 0.071
+          "elapsed_seconds": 0.141
         },
         "rerank": {
           "passage_first_rank": 2,
@@ -278,22 +278,22 @@
               "source": "email_support.md",
               "chunk_index": 4,
               "cosine_score": 0.5509,
-              "rerank_score": 0.846769
+              "rerank_score": 0.865194
             },
             {
               "source": "email_support.md",
               "chunk_index": 27,
               "cosine_score": 0.7684,
-              "rerank_score": 0.766524
+              "rerank_score": 0.821969
             },
             {
               "source": "email_support.md",
               "chunk_index": 16,
               "cosine_score": 0.642,
-              "rerank_score": 0.631061
+              "rerank_score": 0.685916
             }
           ],
-          "elapsed_seconds": 0.028
+          "elapsed_seconds": 0.062
         }
       }
     },
@@ -322,33 +322,33 @@
               "cosine_score": 0.5762
             }
           ],
-          "elapsed_seconds": 0.036
+          "elapsed_seconds": 0.059
         },
         "rerank": {
-          "passage_first_rank": 1,
+          "passage_first_rank": 2,
           "passage_hit": true,
           "source_hit": true,
           "top_results": [
             {
-              "source": "email_support.md",
-              "chunk_index": 25,
-              "cosine_score": 0.5762,
-              "rerank_score": 0.779566
-            },
-            {
               "source": "password_reset.md",
               "chunk_index": 6,
               "cosine_score": 0.4341,
-              "rerank_score": 0.727802
+              "rerank_score": 0.842969
+            },
+            {
+              "source": "email_support.md",
+              "chunk_index": 25,
+              "cosine_score": 0.5762,
+              "rerank_score": 0.833649
             },
             {
               "source": "email_support.md",
               "chunk_index": 19,
               "cosine_score": 0.5191,
-              "rerank_score": 0.687804
+              "rerank_score": 0.774725
             }
           ],
-          "elapsed_seconds": 0.028
+          "elapsed_seconds": 0.047
         }
       }
     },
@@ -377,33 +377,33 @@
               "cosine_score": 0.5508
             }
           ],
-          "elapsed_seconds": 0.026
+          "elapsed_seconds": 0.043
         },
         "rerank": {
-          "passage_first_rank": null,
-          "passage_hit": false,
+          "passage_first_rank": 3,
+          "passage_hit": true,
           "source_hit": true,
           "top_results": [
             {
               "source": "device_setup.md",
               "chunk_index": 20,
               "cosine_score": 0.6036,
-              "rerank_score": 0.956113
+              "rerank_score": 0.962607
             },
             {
               "source": "device_setup.md",
               "chunk_index": 24,
               "cosine_score": 0.6397,
-              "rerank_score": 0.874975
+              "rerank_score": 0.84593
             },
             {
-              "source": "email_support.md",
-              "chunk_index": 8,
-              "cosine_score": 0.5508,
-              "rerank_score": 0.756488
+              "source": "device_setup.md",
+              "chunk_index": 16,
+              "cosine_score": 0.4685,
+              "rerank_score": 0.809467
             }
           ],
-          "elapsed_seconds": 0.03
+          "elapsed_seconds": 0.049
         }
       }
     },
@@ -432,7 +432,7 @@
               "cosine_score": 0.6213
             }
           ],
-          "elapsed_seconds": 0.052
+          "elapsed_seconds": 0.087
         },
         "rerank": {
           "passage_first_rank": 1,
@@ -443,22 +443,22 @@
               "source": "security_policy.md",
               "chunk_index": 34,
               "cosine_score": 0.6213,
-              "rerank_score": 0.820943
+              "rerank_score": 0.847624
             },
             {
               "source": "security_policy.md",
               "chunk_index": 22,
               "cosine_score": 0.3304,
-              "rerank_score": 0.662854
+              "rerank_score": 0.723208
             },
             {
               "source": "email_support.md",
               "chunk_index": 23,
               "cosine_score": 0.6635,
-              "rerank_score": 0.631323
+              "rerank_score": 0.675159
             }
           ],
-          "elapsed_seconds": 0.027
+          "elapsed_seconds": 0.036
         }
       }
     }
