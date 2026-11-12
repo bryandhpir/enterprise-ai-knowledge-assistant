@@ -2,76 +2,104 @@
 
 [![CI - Tests and Docker Build](https://github.com/bryandhpir/enterprise-ai-knowledge-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/bryandhpir/enterprise-ai-knowledge-assistant/actions/workflows/ci.yml)
 
-**A multilingual Retrieval-Augmented Generation (RAG) assistant for enterprise IT support documentation.**
+**A multilingual Retrieval-Augmented Generation (RAG) assistant for enterprise IT support knowledge.**
 
-A Python application that retrieves relevant passages from sample Markdown knowledge articles with multilingual sentence embeddings and **ChromaDB**, then uses **Google Gemini** to generate Vietnamese answers with source references. **FastAPI** serves the API, **Streamlit** provides a chat interface, and **Docker Compose** runs both services locally.
+A local-first Python application that retrieves relevant passages from **fictional, sample IT documentation** with Sentence Transformers and ChromaDB, then uses **Google Gemini** to generate Vietnamese answers with source references. FastAPI powers the API, Streamlit provides the chat interface, and Docker Compose orchestrates both services and persistent storage.
 
-> **Scope:** Educational/portfolio prototype using fictional IT documentation. Docker Compose and GitHub Actions CI are implemented; this is **not** a production-secure enterprise system or a publicly hosted service.
+> **Project scope:** An educational AI engineering portfolio prototype, not a production-secure enterprise service or a publicly hosted application. Do not upload actual company documents or secrets.
 
 ## Demo
 
-![Enterprise AI Knowledge Assistant — Streamlit chatbot](docs/image/chatbotdemo.png)
+![Streamlit chat interface and source references](docs/image/chatbotdemo.png)
 
-The UI shows generated answers, retrieved document names, chunk indexes and similarity scores. Streamlit retains messages during the browser session; previous turns are **not** passed to Gemini as conversational context.
+The chat UI displays responses, source filenames, anchor chunk IDs, original-query similarity scores, and any neighboring chunk IDs included as additional evidence. Browser-session chat history is **not** sent as multi-turn conversation context to Gemini.
 
-## Features
+## Highlights
 
-- Read and chunk five sample IT guides (VPN, password reset, email, device setup, and security policy).
-- Compare fixed-window (V1) and Markdown-aware (V2) chunking strategies.
-- Create normalized multilingual embeddings with Sentence Transformers and retrieve passages from persistent ChromaDB collections.
-- Use source-tagged evidence and a grounding prompt to generate Vietnamese answers with Gemini.
-- Apply basic no-answer handling, optional similarity filtering and citation-ID checks.
-- Expose keyword search, semantic search, chat, health and readiness endpoints through FastAPI.
-- Interact through Streamlit; run locally with Python or Docker Compose.
-- Evaluate retrieval and RAG behavior, and run automated tests and Docker builds in GitHub Actions.
+- **Document ingestion:** Five Markdown IT guides about account recovery, VPN, email, device setup, and information security.
+- **Chunking experiments:** Fixed-size V1 versus heading/paragraph-aware V2, with source metadata.
+- **Semantic retrieval:** Multilingual embeddings and a persistent ChromaDB vector database.
+- **Three retrieval modes:** `baseline`, `multi_query`, and `rerank`, selected through an environment variable.
+- **Multi-Query (experimental):** Gemini generates search paraphrases; weighted Reciprocal Rank Fusion (RRF) merges rankings while preserving the original question.
+- **Passage reranking:** A lightweight, BM25-style lexical signal combined with original-question cosine similarity ranks a wider candidate pool. No additional neural reranker is required.
+- **Neighboring context (optional):** Appends the next chunk **only when it belongs to the same Markdown section**, retaining the anchor's rank and score and reporting the complete evidence span.
+- **Grounded answers:** Source-tagged prompts, conservative no-answer behavior, optional cosine threshold, and citation-ID validation.
+- **Engineering workflow:** FastAPI, Streamlit, Pytest, Docker Compose, persistent volumes, and GitHub Actions CI.
+- **Evaluation:** Retrieval and passage-level metrics, end-to-end answer/refusal checks, and manual answer-quality reviews with limitations documented.
 
 ## Architecture
 
 ```mermaid
 flowchart TD
-    Docs[Sample Markdown knowledge base] --> Chunk[Document parsing and V1/V2 chunking]
-    Chunk --> Embed[Multilingual sentence embeddings]
-    Embed --> DB[(ChromaDB persistent volume)]
-    User[User] --> UI[Streamlit container]
-    UI --> API[FastAPI container]
-    API --> Retrieve[Embed query + retrieve V2 top-K]
-    DB --> Retrieve
-    Retrieve --> Filter[Filter usable passages]
-    Filter -->|No evidence| Fallback[Insufficient-evidence response]
-    Filter -->|Evidence| Context[Source-tagged context and prompt]
-    Context --> Gemini[Google Gemini external API]
-    Gemini --> Cite[Citation-ID check]
-    Cite --> Output[Answer + source metadata]
-    Fallback --> Output
-    Output --> UI
+    Docs[Sample Markdown IT guides] --> Chunk[V1/V2 document chunking]
+    Chunk --> Emb[Multilingual embeddings]
+    Emb --> DB[(Persistent ChromaDB)]
+
+    User[User] --> UI[Streamlit]
+    UI --> API[FastAPI /chat]
+    API --> Mode{Retrieval mode}
+    Mode -->|baseline| Dense[Dense V2 search]
+    Mode -->|multi_query| MQ[Gemini query expansion + weighted RRF]
+    Mode -->|rerank| Re[Dense candidates + lexical reranking]
+    DB --> Dense
+    DB --> MQ
+    DB --> Re
+    Dense --> Filter[Evidence filtering]
+    MQ --> Filter
+    Re --> Filter
+    Filter -->|No evidence| Refuse[Insufficient-evidence response]
+    Filter -->|Usable evidence| Neighbor{Rerank neighbors enabled?}
+    Neighbor -->|Yes| Expand[Append next chunk in same section]
+    Neighbor -->|No| Context[Source-tagged context]
+    Expand --> Context
+    Context --> Gemini[Gemini response generation]
+    Gemini --> Validate[Citation-ID validation]
+    Validate --> Answer[Answer + source metadata]
+    Refuse --> Answer
+    Answer --> UI
 ```
 
-| Collection | Implementation | Primary use |
+The neighboring-context option applies **only to `rerank`**. It adds evidence to selected passages, not extra ranked results. Gemini remains an external API dependency; embeddings and ChromaDB run locally.
+
+### Chunking and collections
+
+| Collection | Approach | Used for |
 | --- | --- | --- |
-| `it_knowledge_base` (V1) | Fixed windows: current `split_text()` default **60 words**, **20-word overlap** | Baseline index and `/semantic-search` |
-| `it_knowledge_base_v2` (V2) | Heading/paragraph-aware; long paragraphs: **45 words**, **8-word overlap**, with heading context | `/chat` RAG retrieval |
+| `it_knowledge_base` | V1 fixed windows: **60 words**, 20-word overlap (current code defaults) | Historical baseline and default `/semantic-search` |
+| `it_knowledge_base_v2` | V2 Markdown-aware passages; long paragraphs: up to **45 words**, 8-word overlap, title/heading context | Chat, retrieval experiments, reranking |
 
-**Reproducibility note:** Some older experimental notes describe 100-word windows for V1; the current implementation defaults to 60 words. Historical evaluation metrics have **not** been recomputed based on that difference. Do not assume exact reproducibility until the original experimental configuration is verified.
+**Reproducibility caution:** Some historical notes describe 100-word V1 windows, whereas the current implementation defaults to 60. Historical V1/V2 results were not re-established under a verified identical V1 configuration. V2 also changes the text embedded, not merely chunk length.
 
-See [architecture and design decisions](docs/ARCHITECTURE.md).
+### Retrieval strategies
+
+| Mode | Implementation | Trade-off |
+| --- | --- | --- |
+| `baseline` | Original query → V2 semantic Top-K | Simple, no query-rewrite cost; can miss relevant passages |
+| `multi_query` | Original query + up to two generated variants → weighted RRF | May recover indirectly phrased questions; adds API calls and intent-drift risk |
+| `rerank` | Dense candidate retrieval → combined lexical/cosine ranking → Top-K | Improved passage ranking on development cases; weight/candidate tuning is dataset-specific |
+| `rerank` + neighbors | Rerank, then append the next chunk from the same section | Better context continuity; additional text and variable generation latency |
+
+Configuration defaults in code: `baseline`, **80 rerank candidates**, lexical weight **0.65**, and neighboring context **disabled** until enabled explicitly. The reported `score` remains original-question cosine similarity. RRF and rerank scores are **ranking signals**, not probabilities or interchangeable similarity values.
+
+Read [architecture notes](docs/ARCHITECTURE.md), [reranking guide](docs/PASSAGE_RERANKING_GUIDE.md), [configuration guide](docs/RERANK_CONFIGURATION.md), and [neighboring context guide](docs/NEIGHBOR_CONTEXT_GUIDE.md).
 
 ## Technology stack
 
-| Area | Tools |
+| Layer | Technology |
 | --- | --- |
 | Language | Python 3.13 |
-| Backend | FastAPI, Uvicorn, Pydantic |
-| Frontend | Streamlit, HTTPX |
-| Embeddings | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` (384 dimensions, CPU inference) |
-| Vector database | Local persistent ChromaDB; cosine distance |
-| LLM | Google Gemini via `google-genai` |
-| Deployment | Docker, Docker Compose, named volumes |
-| Automation | GitHub Actions (Pytest and Docker build) |
-| Evaluation | Retrieval metrics, source-hit/citation-ID/refusal checks, labeled JSON examples |
+| API | FastAPI, Pydantic, Uvicorn |
+| Chat UI | Streamlit, HTTPX |
+| Embeddings | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` (384-dimension vectors, CPU) |
+| Vector store | ChromaDB `PersistentClient` with cosine distance |
+| Generation / query expansion | Google Gemini via `google-genai` |
+| Reranking | BM25-style lexical relevance + normalized cosine similarity |
+| Packaging | Docker, Docker Compose, persistent named volumes |
+| Tests / CI | Pytest, GitHub Actions |
 
-## Quick start: Docker Compose (recommended)
+## Run locally with Docker Compose
 
-**Prerequisites:** Git, Docker Desktop with a running Linux Engine, enough free disk space for ML dependencies, and a Gemini API key. Use these commands from the repository root. First-time builds and downloads can be large.
+**Requirements:** Git, Docker Desktop with a functioning Linux engine, sufficient space for Python/ML dependencies, and your own Gemini API key. The first build and model download can be large.
 
 ### 1. Clone and configure
 
@@ -81,74 +109,71 @@ cd enterprise-ai-knowledge-assistant
 Copy-Item .env.example .env
 ```
 
-Edit `.env` locally and set your own `GEMINI_API_KEY`. Keep the other example settings unless you intend to change them. **Do not commit `.env` or paste its contents into CI logs or issue reports.**
+Set your own `GEMINI_API_KEY` in `.env`. **Never commit `.env`, credentials, or real internal company documents.** If using the optimized demo, add/update these settings in `.env`:
 
-### 2. Build and prepare persistent volumes
+```dotenv
+RAG_RETRIEVAL_MODE=rerank
+RAG_RERANK_CANDIDATES=80
+RAG_RERANK_LEXICAL_WEIGHT=0.65
+RAG_CONTEXT_NEIGHBORS=true
+```
+
+For a direct semantic-search baseline, use `RAG_RETRIEVAL_MODE=baseline`. For an experimental generated-query comparison, use `multi_query`. To test reranking without neighbor expansion, set `RAG_CONTEXT_NEIGHBORS=false`. All modes use the same V2 ChromaDB collection.
+
+### 2. Build Docker image and prepare volumes
 
 ```powershell
 docker compose build api
 ```
 
-The image runs as a non-root user (`appuser`, UID 10001). On a fresh Docker installation, named volume directories may be owned by root. Initialize ownership once **before indexing**:
+The container runs as a non-root `appuser` (UID 10001). On a fresh setup, prepare the Hugging Face cache and vector-store volume permissions **before the first indexing run**:
 
 ```powershell
 docker compose run --rm --no-deps --user root api chown -R 10001:10001 /home/appuser/.cache/huggingface /app/data/chroma
 ```
 
-This is a first-run volume-permission preparation, not a requirement on every startup. Avoid changing permissions or deleting volumes if you already have working data.
+This one-time step should not be repeated unnecessarily on an installation that already works.
 
-### 3. Build ChromaDB indexes in Docker
+### 3. Index the sample documents
 
 ```powershell
 docker compose run --rm --no-deps api python -m scripts.build_index
 docker compose run --rm --no-deps api python -m scripts.build_index_v2
 ```
 
-The first run downloads the embedding model to the `huggingface_cache` volume. Index records persist in `chroma_data`. The V2 builder **replaces existing V2 collection records** when rerun.
+V1 and V2 occupy different ChromaDB collections. The V2 indexing script clears and rebuilds the **V2 collection**; don't rerun it if you are trying to preserve a previously indexed custom corpus. Docker named volumes preserve the model cache and database between ordinary container restarts.
 
-### 4. Run the application
+### 4. Launch and verify
 
 ```powershell
 docker compose up -d
 docker compose ps
-```
-
-| Component | Local address |
-| --- | --- |
-| Streamlit chatbot | http://127.0.0.1:8501 |
-| FastAPI Swagger | http://127.0.0.1:8001/docs |
-| FastAPI health | http://127.0.0.1:8001/health |
-| FastAPI readiness | http://127.0.0.1:8001/ready |
-
-> The host maps **port 8001 to the API container's port 8000**. Inside Docker Compose, Streamlit calls `http://api:8000/chat`; do not change that internal hostname to `localhost`.
-
-Check using PowerShell:
-
-```powershell
 Invoke-RestMethod http://127.0.0.1:8001/health
 Invoke-RestMethod http://127.0.0.1:8001/ready
 ```
 
-`/health` checks the API process. `/ready` additionally checks for a configured Gemini key and a nonempty V2 collection; it **does not** establish that Gemini is reachable or the key is valid.
+| Service | Host URL |
+| --- | --- |
+| Streamlit chatbot | http://127.0.0.1:8501 |
+| FastAPI OpenAPI / Swagger UI | http://127.0.0.1:8001/docs |
+| Health probe | http://127.0.0.1:8001/health |
+| Readiness probe | http://127.0.0.1:8001/ready |
 
-### 5. Persistence and troubleshooting
+Port mapping is **host 8001 → container 8000**. Within Compose, Streamlit contacts `http://api:8000/chat`. The readiness probe checks local configuration and V2 index presence; it **does not** verify that a Gemini API call will succeed.
+
+### 5. Stop and troubleshoot
 
 ```powershell
-# Check containers and recent logs
-docker compose ps
 docker compose logs --tail=80 api
 docker compose logs --tail=80 frontend
-
-# Stop containers without removing volumes
 docker compose down
-
-# Restart; indexes are retained
+# Later: restart without erasing data
 docker compose up -d
 ```
 
-Do **not** run `docker compose down -v` if you want to preserve ChromaDB data and model cache: `-v` removes the named volumes. If port 8001 or 8501 is occupied, adjust only the **host-side** value in `compose.yaml`. If the first indexing run reports `PermissionError` under `/home/appuser/.cache/huggingface`, use the volume-ownership command above and retry indexing.
+**Do not run `docker compose down -v`** when you need your ChromaDB index and model cache: `-v` removes Compose-managed named volumes. If a port is occupied, edit the host port in `compose.yaml`. If model downloads fail with `PermissionError` under `/home/appuser/.cache/huggingface`, review the volume-ownership step above.
 
-## Alternative: local Python setup (Windows PowerShell)
+## Alternative: Python on Windows
 
 ```powershell
 py -3.13 -m venv .venv
@@ -157,14 +182,14 @@ py -3.13 -m venv .venv
 Copy-Item .env.example .env
 ```
 
-Set your own Gemini API key in `.env`, then create local indexes:
+Configure `.env`, then build indexes:
 
 ```powershell
 .\.venv\Scripts\python.exe -m scripts.build_index
 .\.venv\Scripts\python.exe -m scripts.build_index_v2
 ```
 
-Run FastAPI and Streamlit in **separate terminals**:
+Start FastAPI and Streamlit in separate PowerShell windows:
 
 ```powershell
 # Terminal A
@@ -176,21 +201,21 @@ Run FastAPI and Streamlit in **separate terminals**:
 .\.venv\Scripts\python.exe -m streamlit run frontend/streamlit_app.py
 ```
 
-When running locally without Docker, FastAPI defaults to **port 8000** and Streamlit defaults to **port 8501**. Do not run both the Docker and local API on the same host port.
+Without Docker, FastAPI uses port 8000 by default. Avoid launching another service on the same host port.
 
-## API endpoints
+## API
 
-| Method | Path | Purpose |
+| Method | Endpoint | Behavior |
 | --- | --- | --- |
-| GET | `/` | Welcome message |
-| GET | `/health` | Basic process health |
-| GET | `/ready` | Key configuration + nonempty V2 index (503 if not ready) |
-| GET | `/documents` | List Markdown knowledge-base files |
-| GET | `/search?q=...` | Simple keyword search |
-| POST | `/semantic-search` | Semantic search; defaults to V1 |
-| POST | `/chat` | V2 retrieval + Gemini generation |
+| GET | `/` | API welcome |
+| GET | `/health` | Process health |
+| GET | `/ready` | Configured key and nonempty V2 index (503 otherwise) |
+| GET | `/documents` | List sample document files |
+| GET | `/search?q=...` | Keyword search |
+| POST | `/semantic-search` | Semantic retrieval (defaults to V1) |
+| POST | `/chat` | V2 RAG with selected retrieval mode |
 
-Example chat request:
+Example `/chat` request:
 
 ```json
 {
@@ -199,97 +224,128 @@ Example chat request:
 }
 ```
 
-The response includes `question`, `answer`, `sources` (source IDs, filenames, chunk indexes, scores) and `model`. The Streamlit slider supports `top_k` 1–8; the chat API accepts 1–20. If Gemini is unavailable, recognized API errors map to HTTP 502.
+Responses include `question`, `answer`, `sources`, and `model`. Each source has an ID, filename, anchor chunk index, and original-query similarity score; when neighbors were appended, it may include `context_chunk_indices`. The Streamlit UI supports `top_k` 1–8; the API accepts 1–20.
 
-## Evaluation results
+## Evaluation and results
 
-**Recorded historical retrieval evaluation:**
+The following results come from **small, curated development sets** and local runs. They are useful engineering diagnostics, **not** independent benchmarks, guarantees of future accuracy, or proof of citation-level factual correctness. Gemini outputs and latency vary between calls.
+
+### Historical chunking and retrieval measurements
 
 | Dataset | Metric | V1 | V2 |
 | --- | --- | ---: | ---: |
-| Development, 10 queries | Hit@1 | 70% | 100% |
-| Development, 10 queries | Hit@3 | 80% | 100% |
-| Development, 10 queries | MRR@8 | 0.7867 | 1.0000 |
-| Additional, 5 queries | Hit@3 | 80% | 80% |
-| Additional, 5 queries | MRR@8 | 0.7000 | 0.8250 |
+| Development (10 questions) | Hit@1 | 70% | 100% |
+| Development (10 questions) | Hit@3 | 80% | 100% |
+| Development (10 questions) | MRR@8 | 0.7867 | 1.0000 |
+| Additional (5 questions) | Hit@3 | 80% | 80% |
+| Additional (5 questions) | MRR@8 | 0.7000 | 0.8250 |
 
-The additional questions were later used in analysis and should not be represented as an untouched holdout benchmark. Source logs: [`evals/baseline.txt`](evals/baseline.txt), [`evals/v2.txt`](evals/v2.txt).
+Older [retrieval logs](evals/baseline.txt) and [V2 logs](evals/v2.txt) record these experiments. The additional questions were subsequently used during development, so they must not be described as an untouched holdout.
 
-**Recorded RAG evaluation:** V2 collection, `top_k=3`, eight cases (five answerable, three unanswerable).
+### Reranking: passage-level relevance
 
-| Metric | Recorded result |
-| --- | ---: |
-| Source Hit Rate | 4/5 (80%) |
-| Valid Citation ID Rate | 4/5 (80%) |
-| Correct Refusal Rate | 3/3 (100%) |
+A development exercise with eight answerable cases showed **Passage Hit@3** increasing from **5/8 (62.5%)** with dense retrieval to **8/8 (100%)** using **80 candidates** and a **0.65 lexical weight**. MRR@3 for the tuned configuration was **0.7917**, versus **0.4583** for dense retrieval. This is a later local evaluation; the currently committed [`passage_rerank_eval.json`](evals/reports/passage_rerank_eval.json) records an **earlier** reranking run (7/8, 87.5%) and should be regenerated/synchronized before treating it as the tuned-config report.
 
-One question about remote access failed to retrieve `vpn_access.md` within Top-3. These small-sample figures are **not general model accuracy**. Source-hit checks filenames; citation-ID validity verifies identifiers, **not the factual support of every generated claim**. Human evaluation is needed for passage-level groundedness and completeness. See the [RAG evaluation report](evals/reports/rag_eval.md).
+### End-to-end RAG comparison (12 curated cases)
 
-Run evaluations locally when needed (the full RAG evaluation calls Gemini):
+Eight questions are answerable from the sample documents; four are out of scope. All values below are **single-run observations** and exact-match refusal checks use the configured fallback wording.
 
-```powershell
-.\.venv\Scripts\python.exe -m scripts.evaluate_retrieval --collection it_knowledge_base_v2 --dataset evals/questions.json
-.\.venv\Scripts\python.exe -m scripts.evaluate_rag
-```
+| Metric | Baseline | Rerank (80 / 0.65) |
+| --- | ---: | ---: |
+| Source Hit Rate (8 answerable) | 100% | 100% |
+| Valid Citation ID Rate (8 answerable) | 62.5% | 100% |
+| Exact-match Correct Refusal (4 unanswerable) | 100% | 100% |
+| Mean response latency (12 cases) | 5.749 s | 4.143 s |
+| Execution errors | 0 | 0 |
 
-## Testing and Continuous Integration
+Full artifacts: [rerank end-to-end JSON](evals/reports/rerank_e2e_comparison.json), [summary](evals/reports/rerank_e2e_comparison.md), [manual review](docs/RERANK_MANUAL_REVIEW.md).
 
-Run tests locally:
+### Neighboring context: same-section evidence
+
+| Metric | Rerank alone | Rerank + next chunk |
+| --- | ---: | ---: |
+| Source Hit Rate (8 answerable) | 100% | 100% |
+| Valid Citation ID Rate (8 answerable) | 100% | 100% |
+| Exact-match Correct Refusal (4 unanswerable) | 75% | 100% |
+| Mean latency (12 cases) | 7.526 s | 10.727 s |
+| Execution errors | 0 | 0 |
+
+The last mean includes a **75.308-second outlier** for one request with neighbors enabled. These single-run differences do not prove that one configuration is reliably faster. The rerank-alone U02 case returned a **citation-validation fallback**, not disclosed credentials; because it did not match the configured no-answer phrase, the exact-match refusal metric counted it as a failure.
+
+The additional same-section chunk improved completeness on two targeted cases: MFA recovery (`password_reset.md`, chunks 14–15) and device handover (`device_setup.md`, chunks 16–17). The results do **not** establish automatic claim-level verification or access control.
+
+Artifacts: [neighbor comparison JSON](evals/reports/neighbor_context_comparison.json), [summary](evals/reports/neighbor_context_comparison.md), [manual quality review](docs/NEIGHBOR_CONTEXT_MANUAL_REVIEW.md).
+
+### Evaluation limitations
+
+- **Source Hit** checks that an expected filename occurs, not whether the exact passage is sufficient.
+- **Citation ID valid** means referenced IDs exist; it does **not** prove each claim is supported by the passage.
+- **Exact-match refusal** measures a specific fallback string. Other safe refusals may be counted as failures.
+- Development-question tuning, generation variability, and limited sample size prevent general performance claims.
+- Sensitive-information detection in the experimental Multi-Query mode is a conservative heuristic, **not** authentication, authorization, or comprehensive safety filtering.
+
+## Automated testing and CI
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q
+# If the Docker image contains the current code:
+docker compose exec -T api python -m pytest -q
 ```
 
-A [GitHub Actions workflow](.github/workflows/ci.yml) runs **Python 3.13 Pytest** on pushes and pull requests targeting `main`, and builds the **Docker image** on pushes to `main` or manual workflow dispatch. The image-build job validates the Dockerfile but does **not** publish an image or deploy the application to a cloud host. Unit and API tests mock Gemini calls where appropriate; passing tests does not guarantee correct generated answers.
-
-[View workflow runs](https://github.com/bryandhpir/enterprise-ai-knowledge-assistant/actions).
+[GitHub Actions](.github/workflows/ci.yml) executes Python 3.13 Pytest on push/PR events targeting `main`. The Docker image build job runs on **push to `main`** or manual dispatch, **not on pull requests**. Tests use mocks where appropriate and do not represent live Gemini end-to-end evaluation.
 
 ## Repository structure
 
 ```text
 enterprise-ai-knowledge-assistant/
-├── .github/workflows/ci.yml       # Automated Python tests and Docker build
+├── .github/workflows/ci.yml
 ├── app/
-│   ├── main.py                    # FastAPI endpoints, logging, health/readiness
-│   ├── schemas/                   # Request/response validation
-│   └── services/                  # Chunking, embeddings, vector search, RAG
-├── frontend/streamlit_app.py      # Chatbot UI
-├── sample_docs/                   # Five sample enterprise IT guides
-├── scripts/                       # Indexing, diagnostics, evaluation
-├── evals/                         # Labeled questions, metrics, reports
-├── tests/                         # Automated test suite
-├── docs/                          # Design, demo, portfolio and screenshot
+│   ├── main.py
+│   ├── schemas/chat.py
+│   └── services/
+│       ├── rag_service.py
+│       ├── chroma_search.py
+│       ├── multi_query_retrieval.py
+│       ├── lexical_reranker.py
+│       └── neighbor_context.py
+├── frontend/streamlit_app.py
+├── sample_docs/
+├── scripts/                       # Ingestion, experiments, diagnostics, evaluation
+├── evals/                         # Labeled questions and recorded reports
+├── tests/                         # Unit / API / retrieval tests
+├── docs/                          # Architecture, experiment guides, reviews
 │   └── image/chatbotdemo.png
-├── Dockerfile                     # API + shared frontend Python image
-├── compose.yaml                   # FastAPI, Streamlit, persistent volumes
+├── Dockerfile
+├── compose.yaml
 ├── .dockerignore
 ├── .env.example
 ├── requirements.txt
 └── README.md
 ```
 
-## Security, limitations and future work
+## Security and known limitations
 
-This is a portfolio demo built from sample documentation. **Do not upload private enterprise documents, credentials or personal/customer data.** Keep secrets outside Git, avoid publishing an unauthenticated demo on the public internet, and review staged files before pushing.
+- **Not production ready:** No user authentication, per-document permissions, tenant isolation, production rate limiting, or full audit trail.
+- Do not process real company documents, personal data, passwords, or API keys as corpus content.
+- Source tagging and citation-ID validation do not guarantee factual correctness or prevent all unsupported answers.
+- The optional cosine threshold is not calibrated; vector retrieval always returns nearest matches even for unrelated queries.
+- Streamlit session history does not make the backend a multi-turn conversational memory system.
+- Deployment is local with Docker Compose. CI is implemented; **automatic public cloud deployment is not**.
 
-Current limitations:
+Future work could include an independent evaluation set, calibrated relevance/abstention checks, authenticated access, claim-level verification, observability, and deployment automation.
 
-- No user authentication, role-based document permissions or tenant separation.
-- No production-grade rate limiting, centralized secret management or comprehensive monitoring.
-- Citation IDs are validated, but factual claim-to-source support is not automatically established.
-- Out-of-scope refusals are prompt- and context-dependent; the optional similarity threshold is not calibrated.
-- Streamlit history is session state, not multi-turn context supplied to Gemini.
-- Local Docker deployment and CI are implemented; **public cloud deployment/CD are not**.
-
-Potential improvements include retrieval optimization for paraphrased queries, hybrid search or reranking, calibrated guardrails, additional labeled evaluations, better error recovery and authenticated cloud deployment.
-
-## Documentation
+## Additional documentation
 
 - [Architecture & engineering decisions](docs/ARCHITECTURE.md)
-- [Demo walkthrough](docs/DEMO_GUIDE.md)
-- [Portfolio / CV summary](docs/PROJECT_PORTFOLIO.md)
-- [RAG evaluation report](evals/reports/rag_eval.md)
+- [Demo guide](docs/DEMO_GUIDE.md)
+- [Project portfolio description](docs/PROJECT_PORTFOLIO.md)
+- [Multi-Query notes](docs/MULTI_QUERY_INTEGRATION.md)
+- [Reranking guide](docs/PASSAGE_RERANKING_GUIDE.md)
+- [Rerank configuration](docs/RERANK_CONFIGURATION.md)
+- [Neighbor context guide](docs/NEIGHBOR_CONTEXT_GUIDE.md)
+- [Reranking manual quality review](docs/RERANK_MANUAL_REVIEW.md)
+- [Neighbor-context manual quality review](docs/NEIGHBOR_CONTEXT_MANUAL_REVIEW.md)
 
 ---
 
-**Status:** Working local RAG prototype with FastAPI, Streamlit, ChromaDB V2, Gemini, Docker Compose with persistent storage, Pytest, GitHub Actions CI and saved small-sample evaluation reports.
+**Status:** Locally tested RAG portfolio prototype with configurable retrieval, reranking, optional neighboring context, Docker Compose, saved evaluation evidence, automated tests, and GitHub Actions CI.
